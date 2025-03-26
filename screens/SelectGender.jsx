@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { textStyles } from '../styles/typography';
 
-
-export const SelectGenderScreen = ({ }) => {
+export const SelectGenderScreen = ({ navigation }) => {
     return (
         <View>
             <ImageBackground source={require('../assets/home-blured.png')} style={styles.entrance_page}/>
@@ -12,13 +12,13 @@ export const SelectGenderScreen = ({ }) => {
                 </View>
 
                 <View style={styles.genderSelectionContainer}>
-                    <TouchableOpacity style={styles.genderContainer}>
+                    <TouchableOpacity style={styles.genderContainer} onPress={() => navigation.navigate('selectGoal')}>
                         <Image source={require('../assets/woman-gender.png')} style={styles.genderImage} />
-                        <Text style={styles.genderName}>Женский</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.genderContainer}>
+                        <Text style={textStyles.buttonText}>Женский</Text>
+                    </TouchableOpacity>textStyles
+                    <TouchableOpacity style={styles.genderContainer} onPress={() => navigation.navigate('selectGoal')}>
                         <Image source={require('../assets/man-gender.png')} style={styles.genderImage} />
-                        <Text style={styles.genderName}>Мужской</Text>
+                        <Text style={textStyles.buttonText}>Мужской</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -62,6 +62,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         left: 70
-
     }
 })

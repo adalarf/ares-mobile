@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { textStyles } from '../styles/typography';
+import { CustomInput } from '../components/common/CustomInput';
 
 
 export const AuthorizationScreen = ({ navigation }) => {
@@ -7,17 +9,22 @@ export const AuthorizationScreen = ({ navigation }) => {
             <ImageBackground source={require('../assets/home-blured.png')} style={styles.entrance_page}/>
             <View style={styles.authContainer}>
                 <View style={styles.authorizationTextContainer}>
-                    <Text style={styles.authorizationText}>Авторизация</Text>
-                    <Text style={styles.authorizationText}>/</Text>
-                    <Text style={styles.authorizationText}>Вход</Text>
+                    <Text style={textStyles.headerText}>Авторизация</Text>
+                    <Text style={textStyles.headerText}>/</Text>
+                    <Text style={textStyles.headerText}>Вход</Text>
                 </View>
-                <View style={styles.authFields}>
-                    <TextInput placeholder='пароль' style={styles.authField}/>
-                    <TextInput placeholder='почта' style={styles.authField}/>
-                    <TouchableOpacity style={styles.buttonNext} onPress={() => navigation.navigate('selectGender')}>
-                        <Text>Далее</Text>
-                    </TouchableOpacity>
+                <View style={styles.inputContainer}>
+                    <CustomInput
+                        placeholder="Логин"
+                    />
+                    <CustomInput
+                        placeholder="Пароль"
+                        secureTextEntry
+                    />
                 </View>
+                <TouchableOpacity style={styles.buttonNext} onPress={() => navigation.navigate('selectGender')}>
+                    <Text style={textStyles.buttonText}>Далее</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -45,25 +52,15 @@ const styles = StyleSheet.create({
         fontSize: 44,
         color: "#FFFFFF"
     },
-    authFields: {
-        width: Dimensions.get('window').width,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: 218
-    },
-    authField: {
-        width: 298,
-        height: 59,
-        fontSize: 14,
-        color: "#FFFFFF",
-        borderWidth: 1,
-        borderColor: "#808080",
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        backgroundColor: "7E7E7E",
+    inputContainer: {
+        width: '85%',
+        gap: 15,
+        top: 70,
+        left: 55,
     },
     buttonNext : {
+        top: 90,
+        left: 55,
         width: 298,
         height: 59,
         fontSize: 14,
@@ -74,6 +71,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         backgroundColor: "7E7E7E",
-        alignSelf: 'center'
+        alignSelf: 'center',
+        justifyContent: 'center',
+        textAlignVertical: 'center'
+    },
+    nextButtonContainer: {
+        position: 'absolute',
+        top: Dimensions.get('window').height * 0.55,
+        width: '85%',
+        left: '50%',
+        transform: [{ translateX: '-42.5%' }],
+        height: 50,
+        borderRadius: 25,
+        overflow: 'hidden',
     }
   });
