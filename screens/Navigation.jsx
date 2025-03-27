@@ -8,6 +8,7 @@ import { SelectActivityScreen } from './SelectActivity';
 import { SelectParametersScreen } from './SelectParameters';
 import { SelectPlaceScreen } from './SelectPlace';
 import { SelectLoadScreen } from './SelectLoad';
+import { MainPage } from './MainPage';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ export const Navigation = () => {
                 <Stack.Screen name="selectParameters" component={SelectParametersScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="selectPlace" component={SelectPlaceScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="selectLoad" component={SelectLoadScreen} options={{ headerShown: false }}/>
+                <Stack.Screen name="mainPage" component={MainPage} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

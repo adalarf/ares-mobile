@@ -12,10 +12,10 @@ export const SelectLoadScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.loadsContainer}>
-                    <TouchableOpacity style={styles.loadButton}>
+                    <TouchableOpacity style={styles.loadButton} onPress={() => navigation.navigate('mainPage')}>
                         <Text style={styles.buttonText}>Физическая нагрузка</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.loadButton}>
+                    <TouchableOpacity style={styles.loadButton} onPress={() => navigation.navigate('mainPage')}>
                         <Text style={styles.buttonText}>Умственная нагрузка</Text>
                     </TouchableOpacity>
                 </View>
