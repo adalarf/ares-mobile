@@ -1,87 +1,74 @@
-import { StyleSheet, Text, View, ImageBackground, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import { textStyles } from '../styles/typography';
+import { CustomInput } from '../components/common/CustomInput';
+import { CustomButton } from '../components/common/CustomButton';
 
 export const SelectParametersScreen = ({ navigation }) => {
     return (
         <View>
-            <ImageBackground source={require('../assets/splash-screen-without-avatar.png')} style={styles.entrance_page}/>
-            <View style={styles.selectParametersContainer}>
-                <View style={styles.selectParametersTextContainer}>
-                    <Text style={textStyles.headerText}>Напиши</Text>
-                    <Text style={textStyles.headerText}>о себе</Text>
+            <ImageBackground source={require('../assets/home-blured.png')} style={styles.entrance_page}/>
+            <View style={styles.authContainer}>
+                <View style={styles.authorizationTextContainer}>
+                    <Text style={textStyles.headerText}>Параметры</Text>
                 </View>
-
                 <View style={styles.inputContainer}>
-                    <TextInput 
-                        style={styles.input}
-                        keyboardType="numeric"
+                    <CustomInput
                         placeholder="Рост"
-                        placeholderTextColor="#FFFFFF"
-                    />
-
-                    <TextInput 
-                        style={styles.input}
                         keyboardType="numeric"
-                        placeholder="Вес"
-                        placeholderTextColor="#FFFFFF"
                     />
-
-                    <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('selectPlace')}>
-                        <Text style={textStyles.buttonText}>Далее</Text>
-                    </TouchableOpacity>
+                    <CustomInput
+                        placeholder="Вес"
+                        keyboardType="numeric"
+                    />
                 </View>
+
+                <TouchableOpacity style={styles.buttonNext} onPress={() => navigation.navigate('selectPlace')}>
+                    <Text style={textStyles.buttonText}>Далее</Text>
+                </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     entrance_page: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
     },
-    selectParametersContainer: {
+    authContainer: {
         position: 'absolute',
         justifyContent: 'space-between',
         top: 110,
-        width: 269,
-        height: 350
+        width: 298,
+        height: 300
     },
-    selectParametersTextContainer: {
+    authorizationTextContainer: {
         width: Dimensions.get('window').width,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    selectParametersText: {
-        ...textStyles.headerText,
-    },
     inputContainer: {
-        top: 50,
-        left: Dimensions.get('window').width * 0.15,
-        width: 288,
-        height: 352,
-        alignItems: 'center',
-        gap: 20
+        width: '85%',
+        gap: 15,
+        top: 70,
+        left: 55,
     },
-    input: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#7E7E7E',
+    buttonNext: {
+        top: 90,
+        left: 55,
+        width: 298,
+        height: 59,
+        fontSize: 14,
+        color: "#FFFFFF",
+        borderWidth: 1,
+        borderColor: "#808080",
         borderRadius: 10,
-        paddingHorizontal: 15,
-        color: '#FFFFFF',
-        fontSize: 16
-    },
-    nextButton: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#7E7E7E',
-        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20
-    },
-    nextButtonText: {
-        ...textStyles.buttonText,
+        textAlignVertical: 'center',
     }
-}) 
+}); 
