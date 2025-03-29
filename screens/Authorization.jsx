@@ -159,10 +159,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        backgroundColor: "7E7E7E",
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
         alignSelf: 'center',
         justifyContent: 'center',
-        textAlignVertical: 'center'
+        alignItems: 'center',
+        textAlignVertical: 'center',
     },
     nextButtonContainer: {
         position: 'absolute',
