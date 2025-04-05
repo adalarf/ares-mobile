@@ -3,6 +3,8 @@ import { CustomButton } from '../components/common/CustomButton';
 import { BackgroundLayout } from '../components/layout/BackgroundLayout';
 import { ScreenHeader } from '../components/common/ScreenHeader';
 import { ButtonsContainer } from '../components/common/ButtonsContainer';
+import { handleSelect } from '../services/api/handleSelection';
+
 
 export const SelectActivityScreen = ({ navigation }) => {
     return (
@@ -13,15 +15,15 @@ export const SelectActivityScreen = ({ navigation }) => {
                 <ButtonsContainer>
                     <CustomButton 
                         title="0-2000 шагов" 
-                        onPress={() => navigation.navigate('selectParameters')} 
+                        onPress={() => handleSelect({ activity: 'low' }, navigation, 'selectParameters')} 
                     />
                     <CustomButton 
                         title="2000-5000 шагов" 
-                        onPress={() => navigation.navigate('selectParameters')} 
+                        onPress={() => handleSelect({ activity: 'middle' }, navigation, 'selectParameters')} 
                     />
                     <CustomButton 
                         title="5000-10000 шагов" 
-                        onPress={() => navigation.navigate('selectParameters')} 
+                        onPress={() => handleSelect({ activity: 'high' }, navigation, 'selectParameters')} 
                     />
                 </ButtonsContainer>
             </View>

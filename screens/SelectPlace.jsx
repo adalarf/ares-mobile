@@ -3,6 +3,8 @@ import { BackgroundLayout } from '../components/layout/BackgroundLayout';
 import { ScreenHeader } from '../components/common/ScreenHeader';
 import { CustomButton } from '../components/common/CustomButton';
 import { ButtonsContainer } from '../components/common/ButtonsContainer';
+import { handleSelect } from '../services/api/handleSelection';
+
 
 export const SelectPlaceScreen = ({ navigation }) => {
     return (
@@ -13,15 +15,15 @@ export const SelectPlaceScreen = ({ navigation }) => {
                 <ButtonsContainer>
                     <CustomButton 
                         title="Дома" 
-                        onPress={() => navigation.navigate('selectLoad')} 
+                        onPress={() => handleSelect({training_place: 'home'}, navigation, 'selectLoad')} 
                     />
                     <CustomButton 
                         title="На улице" 
-                        onPress={() => navigation.navigate('selectLoad')} 
+                        onPress={() => handleSelect({training_place: 'outside'}, navigation, 'selectLoad')}  
                     />
                     <CustomButton 
-                        title="Дома/на улице" 
-                        onPress={() => navigation.navigate('selectLoad')} 
+                        title="Дома/на улице"
+                        onPress={() => handleSelect({training_place: 'mixed'}, navigation, 'selectLoad')}  
                     />
                 </ButtonsContainer>
             </View>

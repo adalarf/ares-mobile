@@ -3,6 +3,8 @@ import { BackgroundLayout } from '../components/layout/BackgroundLayout';
 import { ScreenHeader } from '../components/common/ScreenHeader';
 import { CustomButton } from '../components/common/CustomButton';
 import { ButtonsContainer } from '../components/common/ButtonsContainer';
+import { handleSelect } from '../services/api/handleSelection';
+
 
 export const SelectLoadScreen = ({ navigation }) => {
     return (
@@ -13,11 +15,11 @@ export const SelectLoadScreen = ({ navigation }) => {
                 <ButtonsContainer>
                     <CustomButton 
                         title="Физическая нагрузка" 
-                        onPress={() => navigation.navigate('mainPage')} 
+                        onPress={() => handleSelect({load: 'physical'}, navigation, 'mainPage')} 
                     />
                     <CustomButton 
                         title="Умственная нагрузка" 
-                        onPress={() => navigation.navigate('mainPage')} 
+                        onPress={() => handleSelect({load: 'intellegentive'}, navigation, 'mainPage')} 
                     />
                 </ButtonsContainer>
             </View>

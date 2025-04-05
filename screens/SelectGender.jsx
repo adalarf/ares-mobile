@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { textStyles } from '../styles/typography';
+import { handleSelect } from '../services/api/handleSelection';
 
 export const SelectGenderScreen = ({ navigation }) => {
     return (
@@ -12,11 +13,11 @@ export const SelectGenderScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.genderSelectionContainer}>
-                    <TouchableOpacity style={styles.genderContainer} onPress={() => navigation.navigate('selectGoal')}>
+                    <TouchableOpacity style={styles.genderContainer} onPress={() => handleSelect({ gender: 'female' }, navigation, 'selectGoal')}>
                         <Image source={require('../assets/woman-gender.png')} style={styles.genderImage} />
                         <Text style={textStyles.buttonText}>Женский</Text>
                     </TouchableOpacity>textStyles
-                    <TouchableOpacity style={styles.genderContainer} onPress={() => navigation.navigate('selectGoal')}>
+                    <TouchableOpacity style={styles.genderContainer} onPress={() => handleSelect({ gender: 'male' }, navigation, 'selectGoal')}>
                         <Image source={require('../assets/man-gender.png')} style={styles.genderImage} />
                         <Text style={textStyles.buttonText}>Мужской</Text>
                     </TouchableOpacity>

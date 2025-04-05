@@ -2,8 +2,30 @@ import { StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity }
 import { textStyles } from '../styles/typography';
 import { CustomInput } from '../components/common/CustomInput';
 import { CustomButton } from '../components/common/CustomButton';
+import { useState } from 'react';
+import { handleSelect } from '../services/api/handleSelection';
+
 
 export const SelectParametersScreen = ({ navigation }) => {
+    const [height, setHeight] = useState('');
+    const [weight, setWeight] = useState('');
+
+    const onSubmit = () => {
+        const numericHeight = parseFloat(height);
+        const numericWeight = parseFloat(weight);
+    
+        if (!numericHeight || !numericWeight) {
+          alert('Пожалуйста, введите корректные значения роста и веса');
+          return;
+        }
+    
+        handleSelect(
+          { height: numericHeight, weight: numericWeight },
+          navigation,
+          'selectPlace'
+        );
+      };
+
     return (
         <View>
             <ImageBackground source={require('../assets/home-blured.png')} style={styles.entrance_page}/>
@@ -15,14 +37,18 @@ export const SelectParametersScreen = ({ navigation }) => {
                     <CustomInput
                         placeholder="Рост"
                         keyboardType="numeric"
+                        value={height}
+                        onChangeText={setHeight}
                     />
                     <CustomInput
                         placeholder="Вес"
                         keyboardType="numeric"
+                        value={weight}
+                        onChangeText={setWeight}
                     />
                 </View>
 
-                <TouchableOpacity style={styles.buttonNext} onPress={() => navigation.navigate('selectPlace')}>
+                <TouchableOpacity style={styles.buttonNext} onPress={onSubmit}>
                     <Text style={textStyles.buttonText}>Далее</Text>
                 </TouchableOpacity>
             </View>

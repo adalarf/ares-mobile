@@ -3,6 +3,8 @@ import { BackgroundLayout } from '../components/layout/BackgroundLayout';
 import { ScreenHeader } from '../components/common/ScreenHeader';
 import { CustomButton } from '../components/common/CustomButton';
 import { ButtonsContainer } from '../components/common/ButtonsContainer';
+import { handleSelect } from '../services/api/handleSelection';
+
 
 export const SelectGoalScreen = ({ navigation }) => {
     return (
@@ -13,15 +15,15 @@ export const SelectGoalScreen = ({ navigation }) => {
                 <ButtonsContainer>
                     <CustomButton 
                         title="Похудение" 
-                        onPress={() => navigation.navigate('selectActivity')} 
+                        onPress={() => handleSelect({ goal: 'weight_loss' }, navigation, 'selectActivity')} 
                     />
                     <CustomButton 
                         title="Набор мышц" 
-                        onPress={() => navigation.navigate('selectActivity')} 
+                        onPress={() => handleSelect({ goal: 'muscle_gain' }, navigation, 'selectActivity')} 
                     />
                     <CustomButton 
                         title="Повышение активности" 
-                        onPress={() => navigation.navigate('selectActivity')} 
+                        onPress={() => handleSelect({ goal: 'increase_activity' }, navigation, 'selectActivity')}
                     />
                 </ButtonsContainer>
             </View>

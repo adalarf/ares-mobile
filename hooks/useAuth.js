@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import { authService } from '../services/api/authService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export const useAuth = (navigation) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -15,13 +17,21 @@ export const useAuth = (navigation) => {
 
         try {
             const loginResult = await authService.login(email, password);
+            const isFilledParameters = await AsyncStorage.getItem('isFilledParameters')
             
             if (loginResult.success) {
-                navigation.navigate('selectGender');
+                await AsyncStorage.setItem('isLoggedIn', 'true');
+                if (isFilledParameters == null) {
+                    navigation.navigate('selectGender');
+                }
+                else {
+                    navigation.navigate('mainPage');
+                }
             } else {
                 const registerResult = await authService.register(email, password);
                 
                 if (registerResult.success) {
+                    await AsyncStorage.setItem('isLoggedIn', 'true');
                     navigation.navigate('selectGender');
                 } else {
                     Alert.alert('Ошибка', registerResult.error);
