@@ -4,7 +4,8 @@ import { useFonts } from 'expo-font';
 
 export const HomeScreen = ({ navigation }) => {
     const [fontsLoaded] = useFonts({
-        'Bounded': require('../assets/fonts/Bounded-Regular.ttf')
+        'Bounded': require('../assets/fonts/Bounded-Regular.ttf'),
+        'Forest-Smooth': require('../assets/fonts/ForestSmooth.ttf'),
     });
 
     if (!fontsLoaded) {

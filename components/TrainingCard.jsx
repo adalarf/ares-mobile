@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const TrainingCard = () => {
+export const TrainingCard = ({ navigation }) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('training')}>
             <View style={styles.iconContainer}>
                 <Image 
                     source={require('../assets/training-icon.png')}
@@ -17,7 +17,7 @@ export const TrainingCard = () => {
                 style={styles.dumbbellImage}
                 resizeMode="contain"
             />
-        </View>
+        </TouchableOpacity>
     );
 };
 

@@ -11,7 +11,7 @@ import { DirectoryCard } from '../components/DirectoryCard';
 import { NutritionCard } from '../components/NutritionCard';
 import { DailyTasksCard } from '../components/DailyTasksCard';
 
-export const MainPage = () => {
+export const MainPage = ({ navigation }) => {
     return (
         <ScrollView
             pagingEnabled={false}
@@ -62,7 +62,7 @@ export const MainPage = () => {
                 
                 <View style={styles.cardsContainer}>
                     <View style={{ width: '52%' }} />
-                    <TrainingCard />
+                    <TrainingCard navigation={navigation} />
                 </View>
                 
                 <CalendarCard />

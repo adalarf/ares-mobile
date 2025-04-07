@@ -9,12 +9,13 @@ import { SelectParametersScreen } from './SelectParameters';
 import { SelectPlaceScreen } from './SelectPlace';
 import { SelectLoadScreen } from './SelectLoad';
 import { MainPage } from './MainPage';
+import { TrainingScreen } from './Training';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const Stack = createNativeStackNavigator();
 
-// Стек авторизации
 const AuthStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="home" component={HomeScreen} />
@@ -28,11 +29,10 @@ const AuthStack = () => (
   </Stack.Navigator>
 );
 
-// Стек основного приложения
 const MainStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="mainPage" component={MainPage} />
-    {/* Добавьте сюда другие экраны основного приложения */}
+    <Stack.Screen name="training" component={TrainingScreen} />
   </Stack.Navigator>
 );
 
@@ -48,10 +48,6 @@ export const Navigation = () => {
     };
     checkAuth();
   }, []);
-
-  if (checkingAuth) {
-    return null; // Показываем заглушку
-  }
 
   return (
     <NavigationContainer>
