@@ -10,6 +10,10 @@ import { SelectPlaceScreen } from './SelectPlace';
 import { SelectLoadScreen } from './SelectLoad';
 import { MainPage } from './MainPage';
 import { TrainingScreen } from './Training';
+import { TrainingDayScreen } from './TrainingDay';
+import { TrainingExampleScreen } from './TrainingExample';
+import { TrainingInfoScreen } from './TrainingInfo';
+import { TrainingCompleteScreen } from './TrainingComplete';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,6 +37,9 @@ const MainStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="mainPage" component={MainPage} />
     <Stack.Screen name="training" component={TrainingScreen} />
+    <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
+    <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
+    <Stack.Screen name="trainingComplete" component={TrainingCompleteScreen} />
   </Stack.Navigator>
 );
 
