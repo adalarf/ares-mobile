@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#FFFFFF',
-        fontSize: 24,
+        fontSize: 20,
         marginBottom: 10,
+        marginLeft: 13
     },
     tshirtIcon: {
         width: '100%',

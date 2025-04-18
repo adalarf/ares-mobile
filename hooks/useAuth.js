@@ -25,7 +25,7 @@ export const useAuth = (navigation) => {
                     navigation.navigate('selectGender');
                 }
                 else {
-                    navigation.navigate('mainPage');
+                    navigation.navigate('selectGender');
                 }
             } else {
                 const registerResult = await authService.register(email, password);

@@ -16,7 +16,7 @@ export const SelectGenderScreen = ({ navigation }) => {
                     <TouchableOpacity style={styles.genderContainer} onPress={() => handleSelect({ gender: 'female' }, navigation, 'selectGoal')}>
                         <Image source={require('../assets/woman-gender.png')} style={styles.genderImage} />
                         <Text style={textStyles.buttonText}>Женский</Text>
-                    </TouchableOpacity>textStyles
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.genderContainer} onPress={() => handleSelect({ gender: 'male' }, navigation, 'selectGoal')}>
                         <Image source={require('../assets/man-gender.png')} style={styles.genderImage} />
                         <Text style={textStyles.buttonText}>Мужской</Text>

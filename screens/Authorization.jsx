@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TextInput, 
 import { textStyles } from '../styles/typography';
 import { CustomInput } from '../components/common/CustomInput';
 import { CustomButton } from '../components/common/CustomButton';
+import { CustomButtonUnmuted } from '../components/common/CustomButtonUnmuted';
 import { useAuth } from '../hooks/useAuth';
 
 export const AuthorizationScreen = ({ navigation }) => {
@@ -36,7 +37,7 @@ export const AuthorizationScreen = ({ navigation }) => {
                         secureTextEntry
                     />
                 </View>
-                <CustomButton 
+                <CustomButtonUnmuted 
                     title="Далее"
                     onPress={onSubmit}
                     disabled={isLoading}

@@ -30,6 +30,11 @@ const AuthStack = () => (
     <Stack.Screen name="selectParameters" component={SelectParametersScreen} />
     <Stack.Screen name="selectPlace" component={SelectPlaceScreen} />
     <Stack.Screen name="selectLoad" component={SelectLoadScreen} />
+    <Stack.Screen name="mainPage" component={MainPage} />
+    <Stack.Screen name="training" component={TrainingScreen} />
+    <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
+    <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
+    <Stack.Screen name="trainingComplete" component={TrainingCompleteScreen} />
   </Stack.Navigator>
 );
 
@@ -59,6 +64,7 @@ export const Navigation = () => {
   return (
     <NavigationContainer>
       {isAuthenticated ? <MainStack /> : <AuthStack />}
+      <AuthStack></AuthStack>
     </NavigationContainer>
   );
 };

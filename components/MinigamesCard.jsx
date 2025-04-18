@@ -47,12 +47,13 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#FFFFFF',
-        fontSize: 14,
+        fontSize: 18,
         marginBottom: 10,
     },
     gamepadImage: {
         width: '100%',
-        height: 100,
+        height: 90,
         alignSelf: 'center',
+        marginBottom: 30
     }
 }); 

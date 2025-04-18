@@ -115,8 +115,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     gemIcon: {
-        width: 32,
-        height: 32,
+        width: 46,
+        height: 46,
+        marginTop: 5,
+        marginLeft: -10,
         resizeMode: 'contain'
     },
     levelCircle: {

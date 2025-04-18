@@ -2,7 +2,7 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 import { typography } from '../styles/typography';
 import PropTypes from 'prop-types';
 
-export const TrainingHeader = ({ title, subtitle }) => {
+export const TrainingHeader = ({ title = 'Тренировки', subtitle = '1 - 2 неделя' }) => {
     return (
         <View style={styles.trainingHeader}>
             <Image style={styles.cross} source={require('../assets/cross.png')} />
@@ -20,11 +20,6 @@ export const TrainingHeader = ({ title, subtitle }) => {
 TrainingHeader.propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
-};
-
-TrainingHeader.defaultProps = {
-    title: 'Тренировки',
-    subtitle: '1 - 2 неделя',
 };
 
 const styles = StyleSheet.create({

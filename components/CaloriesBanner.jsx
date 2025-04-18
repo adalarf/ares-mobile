@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const CaloriesBanner = ({ calories = "590 кк" }) => {
+export const CaloriesBanner = ({ calories = "0 кк" }) => {
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}>
@@ -17,13 +17,6 @@ export const CaloriesBanner = ({ calories = "590 кк" }) => {
                     <Text style={[styles.calories, typography.bounded]}>
                         {calories}
                     </Text>
-                </View>
-                <View style={styles.chartContainer}>
-                    <Image 
-                        source={require('../assets/Chart.png')}
-                        style={styles.chart}
-                        resizeMode="contain"
-                    />
                 </View>
             </View>
         </View>
@@ -46,22 +39,21 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
         gap: 10,
     },
     fireIcon: {
-        width: 24,
-        height: 24,
+        width: 36,
+        height: 36,
     },
     title: {
         color: '#FFFFFF',
-        fontSize: 24,
+        fontSize: 21,
         flex: 1,
     },
     calories: {
         color: '#FFFFFF',
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontSize: 21,
     },
     chartContainer: {
         width: '100%',

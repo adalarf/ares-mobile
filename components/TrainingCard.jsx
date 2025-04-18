@@ -47,12 +47,13 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#FFFFFF',
-        fontSize: 14,
+        fontSize: 17,
         marginBottom: 10,
     },
     dumbbellImage: {
         width: '80%',
         height: 100,
+        marginBottom: 10,
         alignSelf: 'center',
     }
 }); 

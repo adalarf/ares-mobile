@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const BMIBanner = ({ bmiValue = "20,1" }) => {
+export const BMIBanner = () => {
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}>
@@ -12,11 +12,6 @@ export const BMIBanner = ({ bmiValue = "20,1" }) => {
                     <Text style={[styles.subtitle, typography.bounded]}>
                         У тебя нормальный вес
                     </Text>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={[styles.buttonText, typography.bounded]}>
-                            Подробнее
-                        </Text>
-                    </TouchableOpacity>
                 </View>
                 <View style={styles.chartContainer}>
                     <Image 
@@ -24,7 +19,6 @@ export const BMIBanner = ({ bmiValue = "20,1" }) => {
                         style={styles.pieChart}
                         resizeMode="contain"
                     />
-                    <Text style={[styles.bmiValue, typography.bounded]}>{bmiValue}</Text>
                 </View>
             </View>
         </View>
@@ -52,12 +46,12 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#FFFFFF',
-        fontSize: 24,
+        fontSize: 21,
         marginBottom: 8,
     },
     subtitle: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 15,
         marginBottom: 16,
     },
     button: {
@@ -79,8 +73,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     pieChart: {
-        width: '100%',
-        height: '100%',
+        width: 180,
+        height: 180,
         position: 'absolute',
     },
     bmiValue: {
