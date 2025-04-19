@@ -27,7 +27,7 @@ export const MainPage = ({ navigation }) => {
                 resizeMode="cover"
             >
                 <View style={styles.header}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('settings')}>
                         <Image 
                             source={require('../assets/burger-menu.png')} 
                             style={styles.menuIcon}

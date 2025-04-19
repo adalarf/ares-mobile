@@ -9,6 +9,7 @@ import { SelectParametersScreen } from './SelectParameters';
 import { SelectPlaceScreen } from './SelectPlace';
 import { SelectLoadScreen } from './SelectLoad';
 import { MainPage } from './MainPage';
+import { SettingsScreen } from './Settings';
 import { TrainingScreen } from './Training';
 import { TrainingDayScreen } from './TrainingDay';
 import { TrainingExampleScreen } from './TrainingExample';
@@ -31,6 +32,7 @@ const AuthStack = () => (
     <Stack.Screen name="selectPlace" component={SelectPlaceScreen} />
     <Stack.Screen name="selectLoad" component={SelectLoadScreen} />
     <Stack.Screen name="mainPage" component={MainPage} />
+    <Stack.Screen name="settings" component={SettingsScreen} />
     <Stack.Screen name="training" component={TrainingScreen} />
     <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
     <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
@@ -41,6 +43,8 @@ const AuthStack = () => (
 const MainStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="mainPage" component={MainPage} />
+    <Stack.Screen name="settings" component={SettingsScreen} />
+    <Stack.Screen name="home" component={HomeScreen} />
     <Stack.Screen name="training" component={TrainingScreen} />
     <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
     <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
