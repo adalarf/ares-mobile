@@ -1,67 +1,66 @@
-import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, ImageBackground, Dimensions, ActivityIndicator } from 'react-native';
 import { TrainingHeader } from '../components/TrainingHeader';
 import { TrainingItem } from '../components/TrainingItem';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { authService } from '../services/api/authService';
+
 
 export const TrainingScreen = ({ navigation }) => {
+    const [workoutData, setWorkoutData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchWorkoutPlan = async () => {
+            try {
+                const token = await authService.get_token();
+                const response = await fetch('http://10.0.2.2:8000/training/workout_plan', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
+                setWorkoutData(data);
+            } catch (error) {
+                console.error('Ошибка загрузки плана тренировок:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchWorkoutPlan();
+    }, []);
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color="#fff" />
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
             <ImageBackground style={styles.background} source={require('../assets/training-background.png')} />
             <TrainingHeader title="Тренировки" subtitle="1 - 2 неделя" />
             <View style={styles.trainingsContainer}>
-                <TrainingItem
-                    time="~20 мин"
-                    image={require('../assets/upper.png')}
-                    number={1}
-                    title="Верх"
-                    day="Понедельник"
-                    date="10.04.2025"
-                    xp={50}
-                    gems={50}
-                    navigation={navigation}
-                />
-                <TrainingItem
-                    time="~30 мин"
-                    image={require('../assets/lower-body.png')}
-                    number={2}
-                    title="Низ"
-                    day="Среда"
-                    date="12.04.2025"
-                    xp={70}
-                    gems={80}
-                    navigation={navigation}
-                />
-                <TrainingItem
-                    time="~25 мин"
-                    image={require('../assets/upper.png')}
-                    number={3}
-                    title="Верх"
-                    day="Пятница"
-                    date="14.04.2025"
-                    xp={85}
-                    gems={100}
-                    navigation={navigation}
-                />
-                <TrainingItem
-                    time="~15 мин"
-                    image={require('../assets/lower-body.png')}
-                    number={4}
-                    title="Низ"
-                    day="Понедельник"
-                    date="10.04.2025"
-                    xp={90}
-                    gems={100}
-                />
-                <TrainingItem
-                    time="~60 мин"
-                    image={require('../assets/upper.png')}
-                    number={5}
-                    title="Верх"
-                    day="Понедельник"
-                    date="17.04.2025"
-                    xp={110}
-                    gems={130}
-                    navigation={navigation}
-                />
+                {workoutData?.days?.map((day, idx) => (
+                    <TrainingItem
+                        key={idx}
+                        time='~20 мин'
+                        number='1'
+                        id={day.id}
+                        dayData={day}
+                        image={day.image ? { uri: day.image } : require('../assets/training-plug.png')}
+                        title={day.muscle_group}
+                        day={day.day_of_week}
+                        date={day.date}
+                        xp={day.exercises?.reduce((sum, ex) => sum + (ex.expirience || 0), 0)}
+                        gems={day.exercises?.reduce((sum, ex) => sum + (ex.gems || 0), 0)}
+                        navigation={navigation}
+                    />
+                ))}
             </View>
         </View>
     );

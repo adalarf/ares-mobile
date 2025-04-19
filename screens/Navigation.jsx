@@ -64,7 +64,6 @@ export const Navigation = () => {
   return (
     <NavigationContainer>
       {isAuthenticated ? <MainStack /> : <AuthStack />}
-      <AuthStack></AuthStack>
     </NavigationContainer>
   );
 };

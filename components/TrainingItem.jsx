@@ -1,9 +1,9 @@
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const TrainingItem = ({ time, image, number, title, day, date, xp, gems, navigation }) => {
+export const TrainingItem = ({ id, dayData, time, image, number, title, xp, gems, day, date, navigation }) => {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('trainingDay') }>
+        <TouchableOpacity onPress={() => navigation.navigate('trainingDay', { dayId: id, dayData: dayData }) }>
             <View style={styles.trainingContainer}>
                 <View style={styles.trainingImageContainer}>
                     <Text style={[styles.trainingTimeText, typography.bounded]}>{time}</Text>

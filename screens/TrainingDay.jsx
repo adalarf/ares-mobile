@@ -2,43 +2,25 @@ import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { TrainingHeader } from '../components/TrainingHeader';
 import { TrainingItemDay } from '../components/TrainingItemDay';
 
-export const TrainingDayScreen = ({ navigation }) => {
+export const TrainingDayScreen = ({ route, navigation }) => {
+    const { dayId, dayData } = route.params;
+
     return (
         <View style={styles.container}>
             <ImageBackground style={styles.background} source={require('../assets/training-background.png')} />
             <TrainingHeader title="Упражнение дня" subtitle="- 20 мин 160 ккал" />
             <View style={styles.trainingsContainer}>
+            {dayData.exercises.map((exercise, idx) => (
                 <TrainingItemDay
-                    image={require('../assets/pushup.png')}
-                    date="1. Отжимания 10x3"
-                    xp={10}
-                    gems={10}
+                    key={exercise.exercise_id}
+                    image={exercise.image ? { uri: exercise.image } : require('../assets/training-plug.png')}
+                    date={`${idx + 1}. ${exercise.name} ${exercise.sets_number}x${exercise.repetitions}`}
+                    xp={exercise.expirience}
+                    gems={exercise.gems}
                     navigation={navigation}
+                    exercise={exercise}
                 />
-                <TrainingItemDay
-                    image={require('../assets/squats.png')}
-                    date="2. Приседания 20x3"
-                    xp={10}
-                    gems={10}
-                />
-                <TrainingItemDay
-                    image={require('../assets/lunges.png')}
-                    date="3. Выпады 10x2"
-                    xp={10}
-                    gems={10}
-                />
-                <TrainingItemDay
-                    image={require('../assets/twisting.png')}
-                    date="4. Скручивания 10x3"
-                    xp={10}
-                    gems={10}
-                />
-                <TrainingItemDay
-                    image={require('../assets/swings.png')}
-                    date="5. Махи ногами 15x3"
-                    xp={10}
-                    gems={10}
-                />
+            ))}
             </View>
         </View>
     );

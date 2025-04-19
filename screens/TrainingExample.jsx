@@ -3,10 +3,11 @@ import { View, Text, Image, StyleSheet, ImageBackground, Dimensions, TouchableOp
 import { typography } from '../styles/typography';
 import { useNavigation } from '@react-navigation/native';
 
-export const TrainingExampleScreen = () => {
+export const TrainingExampleScreen = ({ route }) => {
     const navigation = useNavigation();
     const [timeLeft, setTimeLeft] = useState(60);
     const [isRunning, setIsRunning] = useState(false);
+    const { exercise } = route.params;
 
     useEffect(() => {
         let timer;
@@ -31,17 +32,17 @@ export const TrainingExampleScreen = () => {
         <View style={styles.container}>
             <ImageBackground style={styles.background} source={require('../assets/training-background.png')} />
             <View style={styles.headerContainer}>
-                <Text style={[styles.headerText, typography.bounded]}>Отжимания</Text>
+                <Text style={[styles.headerText, typography.bounded]}>{exercise.name}</Text>
             </View>
             <View style={styles.imageContainer}>
-                <Image style={styles.characterImage} source={require('../assets/pushup.png')} />
+                <Image style={styles.characterImage} source={exercise.image ? { uri: exercise.image } : require('../assets/training-plug.png')} />
                 <TouchableOpacity style={styles.infoButton} onPress={() => navigation.navigate('TrainingInfo')}>
                     <Image style={styles.infoIcon} source={require('../assets/info.png')} />
                 </TouchableOpacity>
             </View>
             <View style={styles.infoContainer}>
                 <Text style={[styles.infoText, typography.bounded]}>Подход</Text>
-                <Text style={[styles.infoText, typography.bounded]}>1/3</Text>
+                <Text style={[styles.infoText, typography.bounded]}>{`1/${exercise.repetitions}`}</Text>
             </View>
             <View style={styles.timerContainer}>
                 <Text style={[styles.timerText, typography.bounded]}>{formatTime(timeLeft)}</Text>

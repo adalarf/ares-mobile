@@ -1,9 +1,9 @@
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const TrainingItemDay = ({ image, date, xp, gems, navigation }) => {
+export const TrainingItemDay = ({ image, date, xp, gems, navigation, exercise }) => {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('trainingExample')}>
+        <TouchableOpacity onPress={() => navigation.navigate('trainingExample', { exercise })}>
             <View style={styles.trainingContainer}>
                 <View style={styles.trainingImageContainer}>
                     <Image style={styles.trainingImage} source={image} />
