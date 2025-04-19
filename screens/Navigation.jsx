@@ -45,6 +45,13 @@ const MainStack = () => (
     <Stack.Screen name="mainPage" component={MainPage} />
     <Stack.Screen name="settings" component={SettingsScreen} />
     <Stack.Screen name="home" component={HomeScreen} />
+    <Stack.Screen name="authorization" component={AuthorizationScreen} />
+    <Stack.Screen name="selectGender" component={SelectGenderScreen} />
+    <Stack.Screen name="selectGoal" component={SelectGoalScreen} />
+    <Stack.Screen name="selectActivity" component={SelectActivityScreen} />
+    <Stack.Screen name="selectParameters" component={SelectParametersScreen} />
+    <Stack.Screen name="selectPlace" component={SelectPlaceScreen} />
+    <Stack.Screen name="selectLoad" component={SelectLoadScreen} />
     <Stack.Screen name="training" component={TrainingScreen} />
     <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
     <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />

@@ -102,14 +102,12 @@ export const authService = {
         try {
             const token = await AsyncStorage.getItem('authToken');
             if (!token) return null;
-            // Проверка срока действия токена
             const payload = token.split('.')[1];
             const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
             const now = Math.floor(Date.now() / 1000);
             if (decoded.exp && decoded.exp > now) {
                 return token;
             } else {
-                // access_token просрочен, пробуем обновить
                 const refreshResult = await authService.refresh_tokens();
                 if (refreshResult.success) {
                     return await AsyncStorage.getItem('authToken');

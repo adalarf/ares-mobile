@@ -4,7 +4,7 @@ import { ScreenHeader } from '../components/common/ScreenHeader';
 import { CustomButton } from '../components/common/CustomButton';
 import { ButtonsContainer } from '../components/common/ButtonsContainer';
 import { handleSelect } from '../services/api/handleSelection';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SelectPlaceScreen = ({ navigation }) => {
     return (
@@ -15,15 +15,24 @@ export const SelectPlaceScreen = ({ navigation }) => {
                 <ButtonsContainer>
                     <CustomButton 
                         title="Дома" 
-                        onPress={() => handleSelect({training_place: 'home'}, navigation, 'selectLoad')} 
+                        onPress={async () => {
+                            await AsyncStorage.setItem('training_place', 'Дом');
+                            handleSelect({training_place: 'home'}, navigation, 'selectLoad');
+                        }} 
                     />
                     <CustomButton 
                         title="На улице" 
-                        onPress={() => handleSelect({training_place: 'outside'}, navigation, 'selectLoad')}  
+                        onPress={async () => {
+                            await AsyncStorage.setItem('training_place', 'Зал');
+                            handleSelect({training_place: 'outside'}, navigation, 'selectLoad');
+                        }}  
                     />
                     <CustomButton 
                         title="Дома/на улице"
-                        onPress={() => handleSelect({training_place: 'mixed'}, navigation, 'selectLoad')}  
+                        onPress={async () => {
+                            await AsyncStorage.setItem('training_place', 'Дом/улица');
+                            handleSelect({training_place: 'mixed'}, navigation, 'selectLoad');
+                        }}  
                     />
                 </ButtonsContainer>
             </View>

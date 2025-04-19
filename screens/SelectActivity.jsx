@@ -4,7 +4,7 @@ import { BackgroundLayout } from '../components/layout/BackgroundLayout';
 import { ScreenHeader } from '../components/common/ScreenHeader';
 import { ButtonsContainer } from '../components/common/ButtonsContainer';
 import { handleSelect } from '../services/api/handleSelection';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SelectActivityScreen = ({ navigation }) => {
     return (
@@ -15,15 +15,24 @@ export const SelectActivityScreen = ({ navigation }) => {
                 <ButtonsContainer>
                     <CustomButton 
                         title="0-2000 шагов" 
-                        onPress={() => handleSelect({ activity: 'low' }, navigation, 'selectParameters')} 
+                        onPress={async () => {
+                            await AsyncStorage.setItem('training_level', 'low');
+                            handleSelect({ activity: 'low' }, navigation, 'selectParameters');
+                        }} 
                     />
                     <CustomButton 
                         title="2000-5000 шагов" 
-                        onPress={() => handleSelect({ activity: 'middle' }, navigation, 'selectParameters')} 
+                        onPress={async () => {
+                            await AsyncStorage.setItem('training_level', 'middle');
+                            handleSelect({ activity: 'middle' }, navigation, 'selectParameters');
+                        }} 
                     />
                     <CustomButton 
                         title="5000-10000 шагов" 
-                        onPress={() => handleSelect({ activity: 'high' }, navigation, 'selectParameters')} 
+                        onPress={async () => {
+                            await AsyncStorage.setItem('training_level', 'high');
+                            handleSelect({ activity: 'high' }, navigation, 'selectParameters');
+                        }} 
                     />
                 </ButtonsContainer>
             </View>
