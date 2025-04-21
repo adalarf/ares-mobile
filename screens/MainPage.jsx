@@ -68,7 +68,7 @@ export const MainPage = ({ navigation }) => {
                 <CalendarCard />
                 
                 <View style={[styles.cardsContainer, { marginTop: 10 }]}>
-                    <DirectoryCard />
+                    <DirectoryCard navigation={navigation} />
                     <NutritionCard />
                 </View>
                 

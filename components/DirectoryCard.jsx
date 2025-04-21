@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const DirectoryCard = () => {
+export const DirectoryCard = ({ navigation }) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('exerciseTypes')}>
             <View style={styles.iconContainer}>
                 <Image 
                     source={require('../assets/directory-icon.png')}
@@ -17,7 +17,7 @@ export const DirectoryCard = () => {
                 style={styles.bookImage}
                 resizeMode="contain"
             />
-        </View>
+        </TouchableOpacity>
     );
 };
 
