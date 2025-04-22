@@ -1,60 +1,69 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-export const ExerciseTypesScreen = ({ navigation }) => {
-    const [muscleGroups, setMuscleGroups] = useState([]);
-
+export const ExercisesScreen = ({ navigation, route }) => {
+    const { muscle_group_id } = route.params;
+    const [exercises, setExercises] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        const fetchMuscleGroups = async () => {
+        const fetchExercises = async () => {
             try {
-                const response = await fetch('http://10.0.2.2:8000/training/muscle_groups');
+                const response = await fetch(`http://10.0.2.2:8000/training/exercises?muscle_group_id=${muscle_group_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
                 const data = await response.json();
-                setMuscleGroups(data);
+                setExercises(Array.isArray(data) ? data : []);
             } catch (error) {
-                console.error('Ошибка загрузки групп мышц:', error);
+                setExercises([]);
+                console.error('Ошибка загрузки упражнений:', error);
+            } finally {
+                setLoading(false);
             }
         };
-        fetchMuscleGroups();
-    }, []);
-
+        fetchExercises();
+    }, [muscle_group_id]);
     return (
-        <View>
+        <ScrollView>
             <ImageBackground 
                 source={require('../assets/dark-background.png')} 
                 style={styles.backgroundImage}
                 imageStyle={styles.image}
                 resizeMode="cover" />
-            
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('mainPage')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Image 
                         source={require('../assets/back-icon.png')} 
                         style={styles.menuIcon}
                     />
                 </TouchableOpacity>
-                            
                 <View style={styles.gemsContainer}>
-                    <Text style={styles.gemsCount}>Тренировки</Text>
+                    <Text style={styles.gemsCount}>Упражнения</Text>
                 </View>
-
             </View>
-
             <ScrollView contentContainerStyle={styles.scrollContainer} style={styles.scrollView}>
-                {muscleGroups.map(group => (
-                    <TouchableOpacity key={group.id} style={styles.settingsButton} onPress={() => navigation.navigate('exercises', { muscle_group_id: group.id })}>
-                        <Text style={styles.settingsButtonText}>{group.name}</Text>
-                    </TouchableOpacity>
-                ))}
+                {loading ? (
+                    <Text style={{ color: '#fff', marginTop: 40 }}>Загрузка...</Text>
+                ) : exercises.length === 0 ? (
+                    <Text style={{ color: '#fff', marginTop: 40 }}>Нет упражнений для выбранной группы</Text>
+                ) : (
+                    exercises.map(ex => (
+                        <View key={ex.id} style={styles.settingsButton}>
+                            <Text style={styles.settingsButtonText} numberOfLines={2} ellipsizeMode="tail">{ex.name}</Text>
+                        </View>
+                    ))
+                )}
             </ScrollView>
-        </View> 
+        </ScrollView>
     )
 }
-
 
 const styles = StyleSheet.create({
     backgroundImage: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height * 1.2,
     },
     header: {
         position: 'absolute',
@@ -112,16 +121,19 @@ const styles = StyleSheet.create({
     },
     settingsButton: {
         width: 298,
-        height: 59,
+        minHeight: 59,
         borderRadius: 15,
         backgroundColor: 'rgba(255,255,255,0.15)',
         marginBottom: 16,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
     },
     settingsButtonText: {
         color: '#fff',
         fontSize: 18,
         fontWeight: '400',
+        textAlign: 'center',
     },
 });
