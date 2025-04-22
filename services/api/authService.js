@@ -101,7 +101,7 @@ export const authService = {
     async get_token() {
         try {
             const token = await AsyncStorage.getItem('authToken');
-            if (!token) return null;
+            // if (!token) return null;
             const payload = token.split('.')[1];
             const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
             const now = Math.floor(Date.now() / 1000);

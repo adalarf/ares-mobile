@@ -57,7 +57,7 @@ export const MainPage = ({ navigation }) => {
                 
                 <View style={styles.cardsContainer}>
                     <AvatarCard />
-                    <MinigamesCard />
+                    <MinigamesCard navigation={navigation} />
                 </View>
                 
                 <View style={styles.cardsContainer}>

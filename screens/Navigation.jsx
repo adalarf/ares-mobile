@@ -13,6 +13,7 @@ import { SettingsScreen } from './Settings';
 import { TrainingScreen } from './Training';
 import { TrainingDayScreen } from './TrainingDay';
 import { TrainingExampleScreen } from './TrainingExample';
+import { MiniGamesScreen } from './MiniGames';
 import { ExerciseTypesScreen } from './ExerciseTypes';
 import { ExercisesScreen } from './Exercises';
 import { TrainingInfoScreen } from './TrainingInfo';
@@ -49,6 +50,7 @@ const MainStack = () => (
     <Stack.Screen name="exerciseTypes" component={ExerciseTypesScreen} />
     <Stack.Screen name="exercises" component={ExercisesScreen} />
     <Stack.Screen name="trainingInfo" component={TrainingInfoScreen} />
+    <Stack.Screen name="minigames" component={MiniGamesScreen} />
     <Stack.Screen name="home" component={HomeScreen} />
     <Stack.Screen name="authorization" component={AuthorizationScreen} />
     <Stack.Screen name="selectGender" component={SelectGenderScreen} />

@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const MinigamesCard = () => {
+export const MinigamesCard = ({ navigation }) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('minigames')}>
             <View style={styles.iconContainer}>
                 <Image 
                     source={require('../assets/minigames-icon.png')}
@@ -17,7 +17,7 @@ export const MinigamesCard = () => {
                 style={styles.gamepadImage}
                 resizeMode="contain"
             />
-        </View>
+        </TouchableOpacity>
     );
 };
 
