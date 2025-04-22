@@ -50,9 +50,9 @@ export const ExercisesScreen = ({ navigation, route }) => {
                     <Text style={{ color: '#fff', marginTop: 40 }}>Нет упражнений для выбранной группы</Text>
                 ) : (
                     exercises.map(ex => (
-                        <View key={ex.id} style={styles.settingsButton}>
+                        <TouchableOpacity key={ex.id} style={styles.settingsButton} onPress={() => navigation.navigate('trainingInfo', { description: ex.description, image: ex.image })}>
                             <Text style={styles.settingsButtonText} numberOfLines={2} ellipsizeMode="tail">{ex.name}</Text>
-                        </View>
+                        </TouchableOpacity>
                     ))
                 )}
             </ScrollView>

@@ -2,34 +2,22 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
 import { typography } from '../styles/typography';
 
-export const TrainingInfoScreen = () => {
+export const TrainingInfoScreen = ({ route }) => {
+    const description = route?.params?.description;
+    const image = route?.params?.image;
+
     return (
         <ImageBackground style={styles.background} source={require('../assets/training-background.png')}>
             <ScrollView style={styles.container}>
                 <View style={styles.headerContainer}>
-                    <Text style={[styles.headerText, typography.bounded]}>Отжимания</Text>
+                    <Text style={[styles.headerText, typography.bounded]}>Информация об упражнении</Text>
                 </View>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.characterImage} source={require('../assets/pushup.png')} />
+                    <Image style={styles.characterImage} source={image ? { uri: image } : require('../assets/training-plug.png')} />
                 </View>
                 <View style={styles.instructionsContainer}>
-                    <Text style={[styles.instructionsHeader, typography.bounded]}>Инструкция к отжиманиям:</Text>
-                    <Text style={[styles.instructionText, typography.bounded]}>
-                        1. Исходное положение
-                        {'\n'}Встаньте в планку: руки прямые на ширине плеч, ладони под плечами. Тело образует прямую линию от головы до пят. Ноги вместе или слегка расставлены.
-                    </Text>
-                    <Text style={[styles.instructionText, typography.bounded]}>
-                        2. Опускание
-                        {'\n'}На вдохе согните локти, приближая грудь к полу. Локти направляйте под углом 45° от тела. Не прогибайте поясницу — держите пресс и ягодицы напряженными.
-                    </Text>
-                    <Text style={[styles.instructionText, typography.bounded]}>
-                        3. Глубина
-                        {'\n'}Опуститесь до комфортного уровня (минимум — угол в локтях 90°). Если сложно, начните с отжиманий с коленей.
-                    </Text>
-                    <Text style={[styles.instructionText, typography.bounded]}>
-                        4. Подъем
-                        {'\n'}На выдохе усилием груди и трицепсов вытолкните тело вверх, сохраняя прямое положение. Не блокируйте локти в верхней точке.
-                    </Text>
+                    <Text style={[styles.instructionsHeader, typography.bounded]}>Описание:</Text>
+                    <Text style={[styles.instructionText, typography.bounded]}>{description || 'Описание отсутствует'}</Text>
                 </View>
             </ScrollView>
         </ImageBackground>
@@ -39,7 +27,6 @@ export const TrainingInfoScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
         padding: 20,
     },
     headerContainer: {
@@ -73,7 +60,6 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     background: {
-        position: 'absolute',
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
     },
