@@ -1,26 +1,30 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { HomeScreen } from './Home';
-import { AuthorizationScreen } from './Authorization';
-import { SelectGenderScreen } from './SelectGender';
-import { SelectGoalScreen } from './SelectGoal';
-import { SelectActivityScreen } from './SelectActivity';
-import { SelectParametersScreen } from './SelectParameters';
-import { SelectPlaceScreen } from './SelectPlace';
-import { SelectLoadScreen } from './SelectLoad';
-import { MainPage } from './MainPage';
-import { SettingsScreen } from './Settings';
-import { TrainingScreen } from './Training';
-import { TrainingDayScreen } from './TrainingDay';
-import { TrainingExampleScreen } from './TrainingExample';
-import { MiniGamesScreen } from './MiniGames';
-import { ExerciseTypesScreen } from './ExerciseTypes';
-import { ExercisesScreen } from './Exercises';
-import { TrainingInfoScreen } from './TrainingInfo';
-import { TrainingCompleteScreen } from './TrainingComplete';
-import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { HomeScreen } from "./Home";
+import { AuthorizationScreen } from "./Authorization";
+import { SelectGenderScreen } from "./SelectGender";
+import { SelectGoalScreen } from "./SelectGoal";
+import { SelectActivityScreen } from "./SelectActivity";
+import { SelectParametersScreen } from "./SelectParameters";
+import { SelectPlaceScreen } from "./SelectPlace";
+import { SelectLoadScreen } from "./SelectLoad";
+import { MainPage } from "./MainPage";
+import { SettingsScreen } from "./Settings";
+import { TrainingScreen } from "./Training";
+import { TrainingDayScreen } from "./TrainingDay";
+import { TrainingExampleScreen } from "./TrainingExample";
+import { MiniGamesScreen } from "./MiniGames";
+import { ExerciseTypesScreen } from "./ExerciseTypes";
+import { ExercisesScreen } from "./Exercises";
+import { TrainingInfoScreen } from "./TrainingInfo";
+import { TrainingCompleteScreen } from "./TrainingComplete";
+import BlitzInfo from "./BlitzInfo";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import BlitzPoll from "./BlitzPoll";
+import Profile from "./Profile";
+import Store from "./Store";
+import Nutrition from "./Nutrition";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +67,11 @@ const MainStack = () => (
     <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
     <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
     <Stack.Screen name="trainingComplete" component={TrainingCompleteScreen} />
+    <Stack.Screen name="blitzInfo" component={BlitzInfo} />
+    <Stack.Screen name="blitzPoll" component={BlitzPoll} />
+    <Stack.Screen name="profile" component={Profile} />
+    <Stack.Screen name="store" component={Store} />
+    <Stack.Screen name="nutrition" component={Nutrition} />
   </Stack.Navigator>
 );
 
@@ -72,7 +81,7 @@ export const Navigation = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = await AsyncStorage.getItem('authToken');
+      const token = await AsyncStorage.getItem("authToken");
       setIsAuthenticated(!!token);
       setCheckingAuth(false);
     };

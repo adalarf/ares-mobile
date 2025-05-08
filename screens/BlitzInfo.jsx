@@ -8,35 +8,31 @@ import {
     Dimensions,
     ScrollView,
   } from "react-native";
+  import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
   import AsyncStorage from "@react-native-async-storage/async-storage";
   import { authService } from "../services/api/authService";
   
-  export const MiniGamesScreen = ({ navigation }) => {
-    const handleRandomTraining = async () => {
+  export default ({ navigation }) => {
+    const handleStart = async () => {
       try {
-        const training_level = "middle";
-        const goal = await AsyncStorage.getItem("goal");
-        const training_place = "Дом";
-        const token = await authService.get_token();
-        let response = await fetch(
-          "http://51.250.36.219:8000/training/random_exercise",
+        authService.refresh_tokens();
+        const token = await AsyncStorage.getItem("authToken");
+        const response = await fetch(
+          "http://51.250.36.219:8000/blitz/blitz_poll",
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ training_level, goal, training_place }),
           },
         );
-        let data = await response.json();
-        console.log("Random Training Data:", data);
-        navigation.navigate("trainingExample", { exercise: data });
-      } catch (e) {
-        alert("Ошибка при получении случайной тренировки");
+        const data = await response.json();
+        navigation.navigate("blitzPoll", { data });
+      } catch (err) {
+        console.log(err);
       }
     };
-  
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
@@ -51,7 +47,7 @@ import {
             />
           </TouchableOpacity>
           <View style={styles.gemsContainer}>
-            <Text style={styles.gemsCount}>Мини игры</Text>
+            <Text style={styles.gemsCount}>Блиц опрос</Text>
           </View>
         </View>
         <View style={styles.cardsWrapper}>
@@ -59,37 +55,28 @@ import {
             contentContainerStyle={styles.cardsContainer}
             showsVerticalScrollIndicator={false}
           >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("blitzInfo");
-              }}
-              style={styles.card}
-            >
+            <View style={styles.card}>
               <ImageBackground
-                source={require("../assets/blitz-poll-icon.png")}
+                source={require("../assets/blitz-poll-icon-opcity-1.png")}
                 style={styles.cardImage}
                 imageStyle={styles.cardImageStyle}
               >
                 <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>Блиц опрос</Text>
-                  <Text style={styles.cardSubtitle}>Проверь свои знания</Text>
+                  <Text style={styles.cardTitle}>{"Блиц\nопрос"}</Text>
                 </View>
               </ImageBackground>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.card} onPress={handleRandomTraining}>
-              <ImageBackground
-                source={require("../assets/random-training-icon.png")}
-                style={styles.cardImage}
-                imageStyle={styles.cardImageStyle}
-              >
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>Случайная тренировка</Text>
-                  <Text style={styles.cardSubtitle}>
-                    Справишься с любой тренировкой?
-                  </Text>
-                </View>
-              </ImageBackground>
-            </TouchableOpacity>
+            </View>
+            <View style={styles.subtitleContainer}>
+              <Text style={styles.cardSubtitle}>
+                {
+                  "Проверь свои знания.\nОтвечай на вопросы о\nтренировках и правильном питании с ограниченным временем. Выигрывай гемы"
+                }
+              </Text>
+            </View>
+            <CustomButtonWithGradientBorder
+              onPress={handleStart}
+              title={"Начать"}
+            />
           </ScrollView>
         </View>
       </View>
@@ -123,6 +110,13 @@ import {
       alignItems: "center",
       paddingBottom: 40,
     },
+    subtitleContainer: {
+      justifyContent: "center",
+      alignItems: "center",
+      marginBottom: 20,
+      width: "80%",
+      paddingBottom: 40,
+    },
     card: {
       width: 340,
       height: 160,
@@ -140,7 +134,6 @@ import {
     },
     cardImageStyle: {
       resizeMode: "cover",
-      opacity: 0.7,
     },
     cardContent: {
       flex: 1,
@@ -149,8 +142,9 @@ import {
     },
     cardTitle: {
       color: "#fff",
-      fontSize: 24,
-      fontWeight: "bold",
+      fontSize: 32,
+      fontFamily: "Bounded-Regular",
+      fontWeight: 400,
       textAlign: "center",
       marginBottom: 8,
       textShadowColor: "rgba(0,0,0,0.3)",
@@ -158,9 +152,13 @@ import {
       textShadowRadius: 4,
     },
     cardSubtitle: {
-      color: "#fff",
+      color: "rgba(255, 255, 255, 0.74)",
+      fontFamily: "Bounded-Regular",
       fontSize: 16,
+      fontWeight: 400,
       textAlign: "center",
+      lineHeight: 24,
+      letterSpacing: -0.5,
       textShadowColor: "rgba(0,0,0,0.2)",
       textShadowOffset: { width: 0, height: 1 },
       textShadowRadius: 2,

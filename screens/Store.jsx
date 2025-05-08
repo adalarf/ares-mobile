@@ -1,0 +1,100 @@
+import React from "react";
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from "react-native";
+
+function Store({ navigation }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <ImageBackground
+        source={require("../assets/training-background.png")}
+        style={styles.backgroundImage}
+        imageStyle={styles.image}
+        resizeMode="cover"
+      />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require("../assets/back-icon.png")}
+            style={styles.menuIcon}
+          />
+        </TouchableOpacity>
+
+        <View style={styles.gemsContainer}>
+          <Text style={styles.gemsCount}>100</Text>
+          <Image source={require("../assets/gem.png")} style={styles.gemIcon} />
+        </View>
+
+        <View style={styles.levelCircle}>
+          <Text style={styles.levelText}>1</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    position: "absolute",
+    width: Dimensions.get("window").width,
+    minHeight: Dimensions.get("window").height,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    height: 100,
+  },
+  menuIcon: {
+    width: 32,
+    height: 32,
+    resizeMode: "contain",
+  },
+  gemsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  gemsCount: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  gemIcon: {
+    width: 46,
+    height: 46,
+    marginTop: 5,
+    marginLeft: -10,
+    resizeMode: "contain",
+  },
+  levelCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
+  },
+  levelText: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+});
+
+export default Store;

@@ -1,10 +1,20 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { textStyles } from '../styles/typography';
-import { CustomInput } from '../components/common/CustomInput';
-import { CustomButton } from '../components/common/CustomButton';
-import { CustomButtonUnmuted } from '../components/common/CustomButtonUnmuted';
-import { useAuth } from '../hooks/useAuth';
+import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  Dimensions,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { textStyles } from "../styles/typography";
+import { CustomInput } from "../components/common/CustomInput";
+import { CustomButton } from "../components/common/CustomButton";
+import { CustomButtonUnmuted } from "../components/common/CustomButtonUnmuted";
+import { useAuth } from "../hooks/useAuth";
 
 export const AuthorizationScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');

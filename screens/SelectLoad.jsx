@@ -14,7 +14,7 @@ const sendWorkoutPlan = async (load, navigation) => {
         const goal = await AsyncStorage.getItem('goal');
         const trainingPlace = await AsyncStorage.getItem('training_place');
 
-        const response = await axios.post('http://10.0.2.2:8000/training/workout_plan', {
+        const response = await axios.post('http://51.250.36.219:8000/training/workout_plan', {
             training_level: trainingLevel,
             goal: goal,
             training_place: trainingPlace,
@@ -40,15 +40,15 @@ export const SelectLoadScreen = ({ navigation }) => {
         <BackgroundLayout>
             <View style={styles.container}>
                 <ScreenHeader lines={['Какая у вас', 'нагрузка?']} />
-                
+
                 <ButtonsContainer>
-                    <CustomButton 
-                        title="Физическая нагрузка" 
-                        onPress={() => sendWorkoutPlan('physical', navigation)} 
+                    <CustomButton
+                        title="Физическая нагрузка"
+                        onPress={() => sendWorkoutPlan('physical', navigation)}
                     />
-                    <CustomButton 
-                        title="Умственная нагрузка" 
-                        onPress={() => sendWorkoutPlan('intellegentive', navigation)} 
+                    <CustomButton
+                        title="Умственная нагрузка"
+                        onPress={() => sendWorkoutPlan('intellegentive', navigation)}
                     />
                 </ButtonsContainer>
             </View>

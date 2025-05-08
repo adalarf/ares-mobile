@@ -12,7 +12,7 @@ export const handleSelect = async (dataObject, navigation, nextScreen) => {
         return;
       }
 
-      const response = await fetch('http://10.0.2.2:8000/stats/stats', {
+      const response = await fetch('http://51.250.36.219:8000/stats/stats', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
