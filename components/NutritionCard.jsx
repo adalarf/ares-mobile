@@ -26,7 +26,7 @@ export const NutritionCard = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "48%",
+    flex: 1,
     padding: 20,
     borderRadius: 25,
     backgroundColor: "rgba(255, 255, 255, 0.15)",
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.2)",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     marginBottom: 10,
   },
   icon: {
@@ -49,8 +50,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#FFFFFF",
-    fontSize: 17,
+    fontSize: 16,
     marginBottom: 10,
+    textAlign: "center",
+    fontFamily: "Bounded-Regular",
+    alignSelf: "center",
   },
   nutritionImage: {
     width: "80%",

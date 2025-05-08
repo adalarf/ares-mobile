@@ -18,7 +18,6 @@ import {
   import { CalendarCard } from "../components/CalendarCard";
   import { DirectoryCard } from "../components/DirectoryCard";
   import { NutritionCard } from "../components/NutritionCard";
-  import { DailyTasksCard } from "../components/DailyTasksCard";
   
   export const MainPage = ({ navigation }) => {
     return (
@@ -61,27 +60,28 @@ import {
   
           <View style={styles.cardsContainer}>
             <GoalCard />
-            <ShopCard navigation={navigation} />
-          </View>
-  
-          <View style={styles.cardsContainer}>
             <AvatarCard />
-            <MinigamesCard navigation={navigation} />
           </View>
   
-          <View style={styles.cardsContainer}>
-            <View style={{ width: "52%" }} />
-            <TrainingCard navigation={navigation} />
+          <View style={[styles.cardsContainer]}>
+            <ShopCard navigation={navigation} style={{ marginTop: -210 }} />
+            <ShopCard
+              navigation={navigation}
+              style={{ opacity: 0, marginTop: -210 }}
+            />
           </View>
   
           <CalendarCard />
   
           <View style={[styles.cardsContainer, { marginTop: 10 }]}>
-            <DirectoryCard navigation={navigation} />
             <NutritionCard navigation={navigation} />
+            <DirectoryCard navigation={navigation} />
           </View>
   
-          <DailyTasksCard />
+          <View style={styles.cardsContainer}>
+            <TrainingCard navigation={navigation} />
+            <MinigamesCard navigation={navigation} />
+          </View>
         </ImageBackground>
       </ScrollView>
     );
@@ -93,7 +93,7 @@ import {
     },
     backgroundImage: {
       width: Dimensions.get("window").width,
-      minHeight: Dimensions.get("window").height * 2.5,
+      minHeight: Dimensions.get("window").height * 1.8,
     },
     image: {
       width: "100%",
@@ -148,7 +148,8 @@ import {
     cardsContainer: {
       flexDirection: "row",
       marginHorizontal: 20,
-      marginTop: 20,
+      marginTop: 10,
+      gap: 10,
       justifyContent: "space-between",
     },
     nextRow: {

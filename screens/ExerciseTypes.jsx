@@ -53,8 +53,9 @@ import {
           contentContainerStyle={styles.scrollContainer}
           style={styles.scrollView}
         >
-          {muscleGroups.map((group) => (
+          {muscleGroups.map((group, idx) => (
             <CustomButtonWithGradientBorder
+              key={idx}
               onPress={() =>
                 navigation.navigate("exercises", { muscle_group_id: group.id })
               }

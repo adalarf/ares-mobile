@@ -1,36 +1,35 @@
 // import { useFonts } from 'expo-font';
 
-
 // const [fontsLoaded] = useFonts({
 //     'ForestSmooth': require('../assets/fonts/ForestSmooth.ttf')
 // });
 
 export const typography = {
     bounded: {
-        fontFamily: 'Bounded',
+      fontFamily: "Bounded",
     },
     boundedBold: {
-        fontFamily: 'Bounded-Bold',
+      fontFamily: "Bounded-Bold",
     },
     forestSmooth: {
-        fontFamily: 'Forest-Smooth'
+      fontFamily: "Forest-Smooth",
     },
-}
-
-export const textStyles = {
+  };
+  
+  export const textStyles = {
     headerText: {
-        ...typography.bounded,
-        fontSize: 44,
-        color: "#FFFFFF",
+      ...typography.bounded,
+      fontSize: 32,
+      color: "#FFFFFF",
     },
     buttonText: {
-        ...typography.bounded,
-        color: "#FFFFFF",
-        fontSize: 16,
+      ...typography.bounded,
+      color: "#FFFFFF",
+      fontSize: 16,
     },
     trainingNumberTextStyle: {
-        ...typography.forestSmooth,
-        color: '#FFFFFF',
-        fontSize: 40
-    }
-} 
+      ...typography.forestSmooth,
+      color: "#FFFFFF",
+      fontSize: 40,
+    },
+  };

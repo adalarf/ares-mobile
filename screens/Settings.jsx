@@ -47,18 +47,6 @@ import {
           style={styles.scrollView}
         >
           <TouchableOpacity style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>Тема</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>Уведомления</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>Подписки</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>Язык</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>Изменение цели</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -73,12 +61,26 @@ import {
           <TouchableOpacity style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>Замеры</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>Регистрация или вход</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>Рассказать другу</Text>
-          </TouchableOpacity>
+  
+          {/*<TouchableOpacity style={styles.settingsButton}>*/}
+          {/*  <Text style={styles.settingsButtonText}>Тема</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity style={styles.settingsButton}>*/}
+          {/*  <Text style={styles.settingsButtonText}>Уведомления</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity style={styles.settingsButton}>*/}
+          {/*  <Text style={styles.settingsButtonText}>Подписки</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity style={styles.settingsButton}>*/}
+          {/*  <Text style={styles.settingsButtonText}>Язык</Text>*/}
+          {/*</TouchableOpacity>*/}
+  
+          {/*<TouchableOpacity style={styles.settingsButton}>*/}
+          {/*  <Text style={styles.settingsButtonText}>Регистрация или вход</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity style={styles.settingsButton}>*/}
+          {/*  <Text style={styles.settingsButtonText}>Рассказать другу</Text>*/}
+          {/*</TouchableOpacity>*/}
           <TouchableOpacity style={styles.settingsButton} onPress={handleLogout}>
             <Text style={styles.settingsButtonText}>Выход</Text>
           </TouchableOpacity>
@@ -135,18 +137,22 @@ import {
     scrollView: {
       position: "absolute",
       top: 140,
-      width: "100%",
       height: "100%",
+      width: Dimensions.get("window").width - 32,
+      backgroundColor: "#00000036",
+      marginHorizontal: 16,
+      borderRadius: 30,
     },
     scrollContainer: {
       paddingBottom: 40,
+      padding: 16,
       alignItems: "center",
     },
     settingsButton: {
-      width: 320,
+      width: "100%",
       height: 44,
       borderRadius: 22,
-      backgroundColor: "rgba(255,255,255,0.15)",
+      backgroundColor: "rgba(0, 0, 0, 0.21)",
       marginBottom: 16,
       justifyContent: "center",
       alignItems: "center",

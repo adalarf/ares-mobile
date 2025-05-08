@@ -1,11 +1,11 @@
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { typography } from "../styles/typography";
 
-export const ShopCard = ({ navigation }) => {
+export const ShopCard = ({ navigation, style }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("store")}
-      style={styles.container}
+      style={[styles.container, style]}
     >
       <View style={styles.iconContainer}>
         <Image
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.15)",
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.3)",
-    marginLeft: 10,
+    height: 200,
   },
   iconContainer: {
     width: 40,
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.2)",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     marginBottom: 10,
   },
   icon: {
@@ -49,9 +50,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#FFFFFF",
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 10,
-    marginLeft: 13,
+    textAlign: "center",
+    fontFamily: "Bounded-Regular",
+    alignSelf: "center",
   },
   tshirtIcon: {
     width: "100%",

@@ -18,22 +18,29 @@ function BlitzPoll({
 }) {
   const [questions] = React.useState(data?.questions || []);
   const [question, setQuestion] = React.useState(questions[0]);
-  const [timeLeft, setTimeLeft] = React.useState(300);
+  const [index, setIndex] = React.useState(0);
+  const [timeLeft, setTimeLeft] = React.useState(20);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
+        if (prev <= 0) {
           // Optional: Handle time up here
-          return 0;
+          if (index < questions.length - 1) {
+            setQuestion(questions[index + 1]);
+            setIndex(index + 1);
+            setTimeLeft(20);
+          } else {
+            clearInterval(timer);
+            return 0;
+          }
         }
         return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup on unmount
-  }, []);
+  }, [index]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -43,11 +50,11 @@ function BlitzPoll({
 
   const handleAnswer = async (answer_id) => {
     console.log("BlitzPoll answer_id", answer_id);
-    const questionIndex = questions.findIndex(
-      (i) => i?.question_id === question?.question_id,
-    );
-    if (questionIndex < questions.length - 1) {
-      setQuestion(questions[questionIndex + 1]);
+
+    if (index < questions.length - 1) {
+      setQuestion(questions[index + 1]);
+      setIndex(index + 1);
+      setTimeLeft(20);
     }
   };
 

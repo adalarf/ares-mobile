@@ -25,6 +25,8 @@ import BlitzPoll from "./BlitzPoll";
 import Profile from "./Profile";
 import Store from "./Store";
 import Nutrition from "./Nutrition";
+import { StatusBar } from "react-native";
+import NutritionDishes from "./NutritionDishes";
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +74,7 @@ const MainStack = () => (
     <Stack.Screen name="profile" component={Profile} />
     <Stack.Screen name="store" component={Store} />
     <Stack.Screen name="nutrition" component={Nutrition} />
+    <Stack.Screen name="nutritionDishes" component={NutritionDishes} />
   </Stack.Navigator>
 );
 
@@ -90,6 +93,11 @@ export const Navigation = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar
+        barStyle="light-content"
+        translucent={true}
+        backgroundColor={"transparent"}
+      />
       {isAuthenticated ? <MainStack /> : <AuthStack />}
     </NavigationContainer>
   );
