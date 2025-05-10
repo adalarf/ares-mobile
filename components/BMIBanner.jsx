@@ -26,12 +26,8 @@ export const BMIBanner = () => {
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
-          <Text style={[styles.title, typography.bounded]}>
-            ИМТ (индекс массы и тела)
-          </Text>
-          <Text style={[styles.subtitle, typography.bounded]}>
-            У тебя нормальный вес
-          </Text>
+          <Text style={styles.title}>ИМТ (индекс массы и тела)</Text>
+          <Text style={styles.subtitle}>У тебя нормальный вес</Text>
         </View>
         <View style={styles.chartContainer}>
           <LinearGradient
@@ -81,11 +77,13 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     marginBottom: 8,
+    ...typography.bounded,
   },
   subtitle: {
     color: "rgba(255, 255, 255, 0.74)",
     fontSize: 12,
     marginBottom: 16,
+    ...typography.bounded,
   },
   button: {
     backgroundColor: "#FF3B81",
@@ -97,6 +95,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
     fontSize: 14,
+    fontWeight: "bold",
   },
   chartContainer: {
     justifyContent: "center",
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   bmiValue: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontWeight: "bold",
+    ...typography.bounded,
   },
   pieChartBg: {
     padding: 4,

@@ -10,66 +10,69 @@ import { textStyles } from "../styles/typography";
 import { CustomInput } from "../components/common/CustomInput";
 import { useAuth } from "../hooks/useAuth";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const AuthorizationScreen = ({ navigation }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { handleAuth, isLoading } = useAuth(navigation);
+  const { top, bottom } = useSafeAreaInsets();
 
   const onSubmit = () => handleAuth(email, password);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ImageBackground
         source={require("../assets/home-blured.png")}
         style={styles.entrance_page}
-      />
-      <View style={styles.authContainer}>
-        <View style={styles.authorizationTextContainer}>
-          <Text style={textStyles.headerText}>Авторизация</Text>
-          <Text style={textStyles.headerText}>/</Text>
-          <Text style={textStyles.headerText}>Вход</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <CustomInput
-            placeholder="Логин"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
+      >
+        <View
+          style={[
+            styles.authContainer,
+            { paddingTop: top + 30, paddingBottom: bottom },
+          ]}
+        >
+          <View style={styles.authorizationTextContainer}>
+            <Text style={textStyles.headerText}>Авторизация</Text>
+            <Text style={textStyles.headerText}>/</Text>
+            <Text style={textStyles.headerText}>Вход</Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <CustomInput
+              placeholder="Логин"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <CustomInput
+              placeholder="Пароль"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+          </View>
+          <CustomButtonWithGradientBorder
+            title="Далее"
+            onPress={onSubmit}
+            disabled={isLoading}
+            style={styles.buttonNext}
           />
-          <CustomInput
-            placeholder="Пароль"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
         </View>
-        <CustomButtonWithGradientBorder
-          title="Далее"
-          onPress={onSubmit}
-          disabled={isLoading}
-          style={styles.buttonNext}
-        />
-      </View>
+      </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   entrance_page: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: "100%",
+    height: "100%",
   },
   authContainer: {
-    position: "absolute",
-    justifyContent: "space-between",
-    top: 110,
-    width: 298,
-    height: 300,
+    flex: 1,
   },
   authorizationTextContainer: {
-    width: Dimensions.get("window").width,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -78,14 +81,13 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   inputContainer: {
-    width: "85%",
+    width: "100%",
     gap: 15,
     top: 70,
-    left: 55,
+    alignItems: "center",
   },
   buttonNext: {
     top: 90,
-    left: 55,
     width: 298,
     height: 59,
     fontSize: 14,

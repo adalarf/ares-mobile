@@ -35,15 +35,45 @@ function Store({ navigation }) {
           <Text style={styles.levelText}>1</Text>
         </View>
       </View>
+      <View style={styles.table}>
+        {Array.from({ length: 16 }).map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.card,
+              index < 4 && { borderTopWidth: 0 },
+              index >= 12 && { borderBottomWidth: 0 },
+              index % 4 === 0 || index % 4 === 3
+                ? {
+                    width: Dimensions.get("window").width / 4 - 20,
+                  }
+                : {
+                    width: Dimensions.get("window").width / 4 + 20,
+                  },
+            ]}
+          >
+            <View style={styles.cardImageContainer} />
+          </View>
+        ))}
+      </View>
+      <Image style={styles.avatar} source={require("../assets/avatar.png")} />
     </View>
   );
 }
+
+const tableHeight = Dimensions.get("screen").height / 3;
 
 const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute",
     width: Dimensions.get("window").width,
-    minHeight: Dimensions.get("window").height,
+    minHeight: Dimensions.get("screen").height,
+  },
+  avatar: {
+    height: tableHeight,
+    resizeMode: "contain",
+    alignSelf: "center",
+    marginTop: 40,
   },
   image: {
     width: "100%",
@@ -94,6 +124,27 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 20,
     fontWeight: "bold",
+  },
+  table: {
+    height: tableHeight,
+    marginTop: 30,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    // backgroundColor: "white",
+  },
+  card: {
+    height: tableHeight / 4,
+    width: Dimensions.get("window").width / 4,
+    borderColor: "rgba(255, 255, 255, 0.06)",
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardImageContainer: {
+    height: tableHeight / 4 - 4,
+    width: tableHeight / 4 - 4,
+    borderRadius: tableHeight / 4,
+    backgroundColor: "rgba(239, 239, 239, 0.39)",
   },
 });
 

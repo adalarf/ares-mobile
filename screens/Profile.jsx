@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute",
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("screen").height,
   },
   header: {
     flexDirection: "row",

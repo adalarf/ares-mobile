@@ -75,33 +75,35 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 24,
-    color: "#333333",
+    color: "#FFFFFF",
+    textAlign: "center",
   },
   imageContainer: {
     alignItems: "center",
     marginBottom: 20,
   },
   characterImage: {
-    width: 200,
+    width: 300,
     height: 200,
     borderRadius: 10,
+    resizeMode: "contain",
   },
   instructionsContainer: {
     marginTop: 10,
   },
   instructionsHeader: {
     fontSize: 18,
-    color: "#333333",
+    color: "#FFFFFF",
     marginBottom: 10,
   },
   instructionText: {
     fontSize: 16,
-    color: "#555555",
+    color: "#FFFFFF",
     marginBottom: 15,
   },
   background: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("screen").height,
   },
   menuIcon: {
     width: 32,

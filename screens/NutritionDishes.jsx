@@ -12,6 +12,7 @@ import {
 import Ellipse from "../assets/svgs/Ellipse";
 import { authService } from "../services/api/authService";
 import { useFocusEffect } from "@react-navigation/native";
+import { textStyles, typography } from "../styles/typography";
 
 function NutritionDishes({ navigation, route: { params } }) {
   // console.log("NutritionDishes params", JSON.stringify(params, null, 2));
@@ -61,13 +62,13 @@ function NutritionDishes({ navigation, route: { params } }) {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.nutritionContainer}>
           <View style={styles.row}>
-            <Text style={styles.text16}>Съедено ккал</Text>
-            <Text style={styles.text16}>/</Text>
-            <Text style={styles.text16}>708</Text>
+            <Text style={textStyles.buttonText}>Съедено ккал</Text>
+            <Text style={textStyles.buttonText}>/</Text>
+            <Text style={textStyles.buttonText}>708</Text>
           </View>
         </View>
         <View style={styles.nutritionContainer}>
-          <Text style={styles.text16}>Рекомендуемые блюда для вас</Text>
+          <Text style={textStyles.buttonText}>Рекомендуемые блюда для вас</Text>
           <View style={styles.row}>
             <View style={styles.imgCon} />
             <TouchableOpacity
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute",
     width: Dimensions.get("window").width,
-    minHeight: Dimensions.get("window").height,
+    minHeight: Dimensions.get("screen").height,
   },
   contentContainer: {
     paddingHorizontal: 20,
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   gemsCount: {
     color: "#FFFFFF",
     fontSize: 24,
-    fontWeight: "bold",
+    ...typography.bounded,
   },
   gemIcon: {
     width: 46,
@@ -147,7 +148,8 @@ const styles = StyleSheet.create({
   levelText: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontWeight: "bold",
+    ...typography.bounded,
+    lineHeight: 24,
   },
   nutritionContainer: {
     backgroundColor: "rgba(200, 200, 200, 0.39)",
@@ -163,16 +165,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 16,
   },
-  text16: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    fontFamily: "Bounded-Regular",
-  },
   text12: {
-    fontSize: 12,
+    fontSize: 11,
     color: "#FFFFFF",
-    fontFamily: "Bounded-Regular",
     textAlign: "center",
+    ...typography.bounded,
   },
   imgCon: {
     backgroundColor: "rgba(255, 255, 255, 0.2)",

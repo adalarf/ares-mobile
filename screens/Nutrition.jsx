@@ -14,6 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import PieChart from "react-native-pie-chart";
 import { useFocusEffect } from "@react-navigation/native";
+import { typography } from "../styles/typography";
 
 function Nutrition({ navigation }) {
   const [nutritionData, setNutritionData] = React.useState({});
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute",
     width: Dimensions.get("window").width,
-    minHeight: Dimensions.get("window").height,
+    minHeight: Dimensions.get("screen").height,
   },
   pieChartBg: {
     padding: 4,
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
   gemsCount: {
     color: "#FFFFFF",
     fontSize: 24,
-    fontWeight: "bold",
+    ...typography.bounded,
   },
   gemIcon: {
     width: 46,
@@ -302,7 +303,8 @@ const styles = StyleSheet.create({
   levelText: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontWeight: "bold",
+    ...typography.bounded,
+    lineHeight: 24,
   },
   nutritionContainer: {
     backgroundColor: "rgba(200, 200, 200, 0.39)",
@@ -324,18 +326,18 @@ const styles = StyleSheet.create({
   },
   nutritionHeaderText: {
     fontSize: 16,
-    fontFamily: "Bounded-Regular",
     color: "#FFFFFF",
+    ...typography.bounded,
   },
   go: {
     fontSize: 12,
-    fontFamily: "Bounded-Regular",
     color: "#FFFFFF",
+    ...typography.bounded,
   },
   text14: {
     fontSize: 14,
-    fontFamily: "Bounded-Regular",
     color: "#FFFFFF",
+    ...typography.bounded,
   },
   btnGo: {
     paddingVertical: 16,

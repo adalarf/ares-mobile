@@ -58,33 +58,34 @@ export const TrainingScreen = ({ navigation }) => {
       <ImageBackground
         style={styles.background}
         source={require("../assets/training-background.png")}
-      />
-      <TrainingHeader title="Тренировки" subtitle="1 - 2 неделя" />
-      <View style={styles.trainingsContainer}>
-        {workoutData?.days?.map((day, idx) => (
-          <TrainingItem
-            key={idx}
-            time="~20 мин"
-            number="1"
-            id={day.id}
-            dayData={day}
-            image={
-              day.image
-                ? { uri: day.image }
-                : require("../assets/training-plug.png")
-            }
-            title={day.muscle_group}
-            day={day.day_of_week}
-            date={day.date}
-            xp={day.exercises?.reduce(
-              (sum, ex) => sum + (ex.expirience || 0),
-              0,
-            )}
-            gems={day.exercises?.reduce((sum, ex) => sum + (ex.gems || 0), 0)}
-            navigation={navigation}
-          />
-        ))}
-      </View>
+      >
+        <TrainingHeader title="Тренировки" subtitle="1 - 2 неделя" />
+        <View style={styles.trainingsContainer}>
+          {workoutData?.days?.map((day, idx) => (
+            <TrainingItem
+              key={idx}
+              time="~20 мин"
+              number={idx + 1}
+              id={day.id}
+              dayData={day}
+              image={
+                day.image
+                  ? { uri: day.image }
+                  : require("../assets/training-plug.png")
+              }
+              title={day.muscle_group}
+              day={day.day_of_week}
+              date={day.date}
+              xp={day.exercises?.reduce(
+                (sum, ex) => sum + (ex.expirience || 0),
+                0,
+              )}
+              gems={day.exercises?.reduce((sum, ex) => sum + (ex.gems || 0), 0)}
+              navigation={navigation}
+            />
+          ))}
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -94,13 +95,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   background: {
-    position: "absolute",
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("screen").height,
   },
   trainingsContainer: {
-    left: 30,
-    top: 120,
-    position: "absolute",
+    width: "100%",
+    paddingHorizontal: 16,
   },
 });

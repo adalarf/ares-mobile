@@ -32,10 +32,10 @@ export const CalendarCard = () => {
             return (
               <Text
                 style={{
-                  fontFamily: "Bounded-Regular",
                   fontSize: 11,
                   color: "rgba(255, 255, 255, 0.74)",
                   textAlign: "center",
+                  ...typography.bounded,
                 }}
               >
                 {month}
@@ -62,10 +62,10 @@ export const CalendarCard = () => {
                 <DayWrapper style={styles.dayContainer} isToday={isToday}>
                   <Text
                     style={{
-                      fontFamily: "Bounded-Regular",
                       fontSize: 12,
                       color: textColor,
                       textAlign: "center",
+                      ...typography.bounded,
                     }}
                   >
                     {date.day}

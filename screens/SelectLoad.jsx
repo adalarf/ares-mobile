@@ -16,7 +16,7 @@ const sendWorkoutPlan = async (load, navigation) => {
     const response = await axios.post(
       "http://51.250.36.219:8000/training/workout_plan",
       {
-        training_level: trainingLevel,
+        training_level: trainingLevel || "middle",
         goal: goal,
         training_place: trainingPlace,
       },
@@ -34,7 +34,10 @@ const sendWorkoutPlan = async (load, navigation) => {
       console.error("Failed to send workout plan:", response.status);
     }
   } catch (error) {
-    console.error("Error sending workout plan:", error);
+    console.error(
+      "Error sending workout plan:",
+      JSON.stringify(error, null, 2),
+    );
   }
 };
 

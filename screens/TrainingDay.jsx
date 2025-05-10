@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   background: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("screen").height,
   },
   trainingsContainer: {
     left: 30,

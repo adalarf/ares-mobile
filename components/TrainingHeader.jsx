@@ -1,4 +1,11 @@
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { typography } from "../styles/typography";
 import PropTypes from "prop-types";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +22,7 @@ export const TrainingHeader = ({
       </TouchableOpacity>
       <View>
         <Text style={[styles.trainingText, typography.bounded]}>{title}</Text>
-        <Text style={[styles.trainingText, typography.bounded]}>
+        <Text style={[styles.trainingText, { fontWeight: 200 }]}>
           {subtitle}
         </Text>
       </View>
@@ -33,10 +40,9 @@ TrainingHeader.propTypes = {
 
 const styles = StyleSheet.create({
   trainingHeader: {
-    top: 55,
-    left: 30,
-    position: "absolute",
-    width: 343,
+    marginTop: 55,
+    left: 16,
+    width: Dimensions.get("window").width - 32,
     height: 52,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -55,7 +61,8 @@ const styles = StyleSheet.create({
   levelText: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontWeight: "bold",
+    ...typography.bounded,
+    lineHeight: 24,
   },
   cross: {
     width: 52,
@@ -63,5 +70,7 @@ const styles = StyleSheet.create({
   },
   trainingText: {
     color: "#FFFFFF",
+    ...typography.bounded,
+    fontSize: 16,
   },
 });

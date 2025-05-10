@@ -70,7 +70,7 @@ export const SelectParametersScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   entrance_page: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: "100%",
   },
   authContainer: {
     position: "absolute",
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
-    width: "85%",
+    width: "100%",
     gap: 15,
     top: 70,
-    left: 55,
+    alignItems: "center",
   },
   buttonNext: {
     top: 90,
