@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    width: 269,
+    width: "100%",
+    paddingHorizontal: 40,
   },
 });

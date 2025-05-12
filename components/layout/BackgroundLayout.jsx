@@ -6,8 +6,9 @@ export const BackgroundLayout = ({ children }) => {
       <ImageBackground
         source={require("../../assets/splash-screen-without-avatar.png")}
         style={styles.entrance_page}
-      />
-      {children}
+      >
+        {children}
+      </ImageBackground>
     </View>
   );
 };

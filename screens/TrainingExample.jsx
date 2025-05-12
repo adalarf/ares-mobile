@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { typography } from "../styles/typography";
 import { useNavigation } from "@react-navigation/native";
+import { TrainingHeader } from "../components/TrainingHeader";
 
 export const TrainingExampleScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -41,56 +42,64 @@ export const TrainingExampleScreen = ({ route }) => {
       <ImageBackground
         style={styles.background}
         source={require("../assets/training-background.png")}
-      />
-      <View style={styles.headerContainer}>
-        <Text style={[styles.headerText, typography.bounded]}>
-          {exercise.name}
-        </Text>
-      </View>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.characterImage}
-          source={
-            exercise.image
-              ? { uri: exercise.image }
-              : require("../assets/training-plug.png")
-          }
-        />
-        <TouchableOpacity
-          style={styles.infoButton}
-          onPress={() => navigation.navigate("trainingInfo")}
-        >
-          <Image
-            style={styles.infoIcon}
-            source={require("../assets/info.png")}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.infoContainer}>
-        <Text style={[styles.infoText, typography.bounded]}>Подход</Text>
-        <Text
-          style={[styles.infoText, typography.bounded]}
-        >{`1/${exercise.repetitions}`}</Text>
-      </View>
-      <View style={styles.timerContainer}>
-        <Text style={[styles.timerText, typography.bounded]}>
-          {formatTime(timeLeft)}
-        </Text>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.stopButton}
-          onPress={() => setIsRunning(false)}
-        >
-          <Text style={[styles.buttonText, typography.bounded]}>Стоп</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.startButton}
-          onPress={() => setIsRunning(true)}
-        >
-          <Text style={[styles.buttonText, typography.bounded]}>Старт</Text>
-        </TouchableOpacity>
-      </View>
+      >
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={navigation.goBack}>
+            <Image
+              style={styles.cross}
+              source={require("../assets/cross.png")}
+            />
+          </TouchableOpacity>
+          <Text style={[styles.headerText, typography.bounded]}>
+            {exercise.name}
+          </Text>
+          <View style={styles.cross} />
+        </View>
+        <View style={styles.imageContainer}>
+          {/*<Image*/}
+          {/*  style={styles.characterImage}*/}
+          {/*  source={*/}
+          {/*    exercise.image*/}
+          {/*      ? { uri: exercise.image }*/}
+          {/*      : require("../assets/training-plug.png")*/}
+          {/*  }*/}
+          {/*/>*/}
+          <TouchableOpacity
+            style={styles.infoButton}
+            onPress={() => navigation.navigate("trainingInfo")}
+          >
+            <Image
+              style={styles.infoIcon}
+              source={require("../assets/info.png")}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={[styles.infoText, typography.bounded]}>Подход</Text>
+          <Text
+            style={[styles.infoText, typography.bounded]}
+          >{`1/${exercise.repetitions}`}</Text>
+        </View>
+        <View style={styles.timerContainer}>
+          <Text style={[styles.timerText, typography.bounded]}>
+            {formatTime(timeLeft)}
+          </Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.stopButton}
+            onPress={() => setIsRunning(false)}
+          >
+            <Text style={[styles.buttonText, typography.bounded]}>Стоп</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.startButton}
+            onPress={() => setIsRunning(true)}
+          >
+            <Text style={[styles.buttonText, typography.bounded]}>Старт</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -101,29 +110,38 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  cross: {
+    width: 52,
+    height: 52,
+  },
   background: {
     position: "absolute",
     width: Dimensions.get("window").width,
     height: Dimensions.get("screen").height,
   },
   headerContainer: {
-    position: "absolute",
-    top: 50,
+    marginTop: 55,
     alignItems: "center",
     paddingHorizontal: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 16,
     color: "#FFFFFF",
     textAlign: "center",
   },
   imageContainer: {
-    marginTop: 100,
+    marginTop: 30,
     alignItems: "center",
     position: "relative",
     width: Dimensions.get("window").width - 32,
-    height: 300,
+    flex: 0.8,
     marginHorizontal: 16,
+    backgroundColor: "#9E9E9E",
+    borderRadius: 44,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.74)",
   },
   characterImage: {
     width: "100%",
@@ -146,6 +164,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "60%",
     marginTop: 20,
+    alignSelf: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255, 255, 255, 0.2)",
   },
   infoText: {
     fontSize: 18,
@@ -153,28 +174,34 @@ const styles = StyleSheet.create({
   },
   timerContainer: {
     marginTop: 20,
+    alignSelf: "center",
   },
   timerText: {
     fontSize: 36,
     color: "#FFFFFF",
   },
   buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    gap: 10,
+    height: 96,
     width: "80%",
     marginTop: 30,
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   stopButton: {
-    backgroundColor: "#D3D3D3",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
+    flex: 1,
     borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#C1C1C16E",
   },
   startButton: {
-    backgroundColor: "#32CD32",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
+    flex: 1,
     borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ACD2006E",
   },
   buttonText: {
     fontSize: 18,

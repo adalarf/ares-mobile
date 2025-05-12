@@ -15,7 +15,10 @@ export const ScreenHeader = ({ lines }) => {
       </TouchableOpacity>
       <View style={styles.headerContainer}>
         {lines.map((line, index) => (
-          <Text key={index} style={textStyles.headerText}>
+          <Text
+            key={index}
+            style={[textStyles.headerText, { textAlign: "center" }]}
+          >
             {line}
           </Text>
         ))}
@@ -29,7 +32,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     paddingTop: 50,
     paddingHorizontal: 20,
     width: "100%",
@@ -42,5 +44,6 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     resizeMode: "contain",
+    marginTop: 15,
   },
 });

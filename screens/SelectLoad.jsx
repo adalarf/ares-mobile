@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authService } from "../services/api/authService";
 import axios from "axios";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { handleSelect } from "../services/api/handleSelection";
 
 const sendWorkoutPlan = async (load, navigation) => {
   try {
@@ -49,7 +50,10 @@ export const SelectLoadScreen = ({ navigation }) => {
 
         <View style={styles.buttonContainer}>
           <CustomButtonWithGradientBorder
-            onPress={() => sendWorkoutPlan("physical", navigation)}
+            onPress={async () => {
+              await AsyncStorage.setItem("training_level", "low");
+              handleSelect({ activity: "low" }, navigation, "selectIntensity");
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={styles.mainText}>Слегка активный</Text>
@@ -59,7 +63,14 @@ export const SelectLoadScreen = ({ navigation }) => {
             </View>
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
-            onPress={() => sendWorkoutPlan("intellegentive", navigation)}
+            onPress={async () => {
+              await AsyncStorage.setItem("training_level", "middle");
+              handleSelect(
+                { activity: "middle" },
+                navigation,
+                "selectIntensity",
+              );
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={styles.mainText}>Умеренно активный</Text>
@@ -69,7 +80,10 @@ export const SelectLoadScreen = ({ navigation }) => {
             </View>
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
-            onPress={() => sendWorkoutPlan("intellegentive", navigation)}
+            onPress={async () => {
+              await AsyncStorage.setItem("training_level", "high");
+              handleSelect({ activity: "high" }, navigation, "selectIntensity");
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={styles.mainText}>Активный</Text>
@@ -79,7 +93,10 @@ export const SelectLoadScreen = ({ navigation }) => {
             </View>
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
-            onPress={() => sendWorkoutPlan("intellegentive", navigation)}
+            onPress={async () => {
+              await AsyncStorage.setItem("training_level", "high");
+              handleSelect({ activity: "high" }, navigation, "selectIntensity");
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={styles.mainText}>Очень активный</Text>
@@ -94,21 +111,21 @@ export const SelectLoadScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    // position: "absolute",
     justifyContent: "space-between",
     alignItems: "center",
-    top: 50,
+    marginTop: 50,
     width: "100%",
-    height: 350,
   },
   buttonContainer: {
     marginTop: 50,
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    width: 269,
+    width: "100%",
+    paddingHorizontal: 40,
   },
   mainText: {
     fontSize: 16,
@@ -123,5 +140,6 @@ const styles = StyleSheet.create({
   textContainer: {
     width: "100%",
     paddingLeft: 10,
+    gap: 4,
   },
 });

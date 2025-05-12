@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Dimensions,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { TrainingHeader } from "../components/TrainingHeader";
 import { TrainingItem } from "../components/TrainingItem";
@@ -60,31 +61,36 @@ export const TrainingScreen = ({ navigation }) => {
         source={require("../assets/training-background.png")}
       >
         <TrainingHeader title="Тренировки" subtitle="1 - 2 неделя" />
-        <View style={styles.trainingsContainer}>
-          {workoutData?.days?.map((day, idx) => (
-            <TrainingItem
-              key={idx}
-              time="~20 мин"
-              number={idx + 1}
-              id={day.id}
-              dayData={day}
-              image={
-                day.image
-                  ? { uri: day.image }
-                  : require("../assets/training-plug.png")
-              }
-              title={day.muscle_group}
-              day={day.day_of_week}
-              date={day.date}
-              xp={day.exercises?.reduce(
-                (sum, ex) => sum + (ex.expirience || 0),
-                0,
-              )}
-              gems={day.exercises?.reduce((sum, ex) => sum + (ex.gems || 0), 0)}
-              navigation={navigation}
-            />
-          ))}
-        </View>
+        <ScrollView>
+          <View style={styles.trainingsContainer}>
+            {workoutData?.days?.map((day, idx) => (
+              <TrainingItem
+                key={idx}
+                time="~20 мин"
+                number={idx + 1}
+                id={day.id}
+                dayData={day}
+                image={
+                  day.image
+                    ? { uri: day.image }
+                    : require("../assets/training-plug.png")
+                }
+                title={day.muscle_group}
+                day={day.day_of_week}
+                date={day.date}
+                xp={day.exercises?.reduce(
+                  (sum, ex) => sum + (ex.expirience || 0),
+                  0,
+                )}
+                gems={day.exercises?.reduce(
+                  (sum, ex) => sum + (ex.gems || 0),
+                  0,
+                )}
+                navigation={navigation}
+              />
+            ))}
+          </View>
+        </ScrollView>
       </ImageBackground>
     </View>
   );

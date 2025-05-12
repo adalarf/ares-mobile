@@ -27,6 +27,9 @@ import Store from "./Store";
 import Nutrition from "./Nutrition";
 import { StatusBar } from "react-native";
 import NutritionDishes from "./NutritionDishes";
+import SelectIntensity from "./SelectIntensity";
+import SelectFoodRestrictions from "./SelectFoodRestrictions";
+import SelectProductGroup from "./SelectProductGroup";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +49,18 @@ const AuthStack = () => (
     <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
     <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
     <Stack.Screen name="trainingComplete" component={TrainingCompleteScreen} />
+    <Stack.Screen name="blitzInfo" component={BlitzInfo} />
+    <Stack.Screen name="blitzPoll" component={BlitzPoll} />
+    <Stack.Screen name="profile" component={Profile} />
+    <Stack.Screen name="store" component={Store} />
+    <Stack.Screen name="nutrition" component={Nutrition} />
+    <Stack.Screen name="nutritionDishes" component={NutritionDishes} />
+    <Stack.Screen name="selectIntensity" component={SelectIntensity} />
+    <Stack.Screen name="selectProductGroup" component={SelectProductGroup} />
+    <Stack.Screen
+      name="selectFoodRestrictions"
+      component={SelectFoodRestrictions}
+    />
   </Stack.Navigator>
 );
 
@@ -75,6 +90,12 @@ const MainStack = () => (
     <Stack.Screen name="store" component={Store} />
     <Stack.Screen name="nutrition" component={Nutrition} />
     <Stack.Screen name="nutritionDishes" component={NutritionDishes} />
+    <Stack.Screen name="selectIntensity" component={SelectIntensity} />
+    <Stack.Screen name="selectProductGroup" component={SelectProductGroup} />
+    <Stack.Screen
+      name="selectFoodRestrictions"
+      component={SelectFoodRestrictions}
+    />
   </Stack.Navigator>
 );
 

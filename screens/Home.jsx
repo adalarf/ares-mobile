@@ -19,7 +19,7 @@ export const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <ImageBackground
         source={require("../assets/splash-screen.png")}
         style={styles.entrance_page}
@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
   },
+  container: {
+    flex: 1,
+  },
   entrance_button_text: {
     fontFamily: "Bounded",
     fontSize: 20,
@@ -57,7 +60,8 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   entrance_page: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("screen").height,
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
 });

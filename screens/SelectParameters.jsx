@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   buttonNext: {
     top: 90,
-    width: 298,
+    width: Dimensions.get("window").width - 80,
     height: 59,
     fontSize: 14,
     color: "#FFFFFF",
