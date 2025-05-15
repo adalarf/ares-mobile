@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   ImageBackground,
   Dimensions,
@@ -10,11 +9,10 @@ import {
 } from "react-native";
 import { typography } from "../styles/typography";
 import { useNavigation } from "@react-navigation/native";
-import { TrainingHeader } from "../components/TrainingHeader";
 import { authService } from "../services/api/authService";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { get } from "lodash";
+import { Image } from "expo-image";
 
 const onComplete = async (exercise, navigation) => {
   try {
@@ -91,17 +89,22 @@ export const TrainingExampleScreen = ({ route }) => {
           <View style={styles.cross} />
         </View>
         <View style={styles.imageContainer}>
-          {/*<Image*/}
-          {/*  style={styles.characterImage}*/}
-          {/*  source={*/}
-          {/*    exercise.image*/}
-          {/*      ? { uri: exercise.image }*/}
-          {/*      : require("../assets/training-plug.png")*/}
-          {/*  }*/}
-          {/*/>*/}
+          <Image
+            style={styles.characterImage}
+            source={
+              exercise.image
+                ? { uri: exercise.image }
+                : require("../assets/training-plug.png")
+            }
+          />
           <TouchableOpacity
             style={styles.infoButton}
-            onPress={() => navigation.navigate("trainingInfo")}
+            onPress={() =>
+              navigation.navigate("trainingInfo", {
+                description: exercise.description,
+                image: exercise.image,
+              })
+            }
           >
             <Image
               style={styles.infoIcon}
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     width: Dimensions.get("window").width - 32,
-    flex: 0.8,
+    aspectRatio: 1,
     marginHorizontal: 16,
     backgroundColor: "#9E9E9E",
     borderRadius: 44,

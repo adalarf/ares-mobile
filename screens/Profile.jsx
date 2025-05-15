@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dimensions,
   Image,
@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import ProfileCard from "../components/ProfileCard";
+import { authService } from "../services/api/authService";
 
 function Profile({ navigation }) {
   return (

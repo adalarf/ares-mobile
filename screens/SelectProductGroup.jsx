@@ -136,6 +136,9 @@ function SelectProductGroup({ navigation }) {
                       source={{ uri: item.imageUri }}
                       style={{ flex: 1 }}
                     />
+                    <View style={styles.titleContainer}>
+                      <Text style={textStyles.text20}>{item.name}</Text>
+                    </View>
                   </View>
                 </LinearGradient>
               </TouchableOpacity>
@@ -171,7 +174,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingHorizontal: 40,
-    paddingVertical: 30,
+    paddingBottom: 30,
+    paddingTop: 10,
   },
   group: {
     height: 120,
@@ -186,6 +190,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     overflow: "hidden",
+  },
+  titleContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(193, 193, 193, 0.43)",
+    paddingTop: "65%",
+    padding: 10,
   },
 });
 

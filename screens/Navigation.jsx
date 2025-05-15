@@ -39,6 +39,7 @@ const AuthStack = () => (
     <Stack.Screen name="authorization" component={AuthorizationScreen} />
     <Stack.Screen name="selectGender" component={SelectGenderScreen} />
     <Stack.Screen name="selectGoal" component={SelectGoalScreen} />
+    <Stack.Screen name="minigames" component={MiniGamesScreen} />
     <Stack.Screen name="selectActivity" component={SelectActivityScreen} />
     <Stack.Screen name="selectParameters" component={SelectParametersScreen} />
     <Stack.Screen name="selectPlace" component={SelectPlaceScreen} />

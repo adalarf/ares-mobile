@@ -1,4 +1,5 @@
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Image } from "expo-image";
 import { typography } from "../styles/typography";
 
 export const TrainingItemDay = ({
@@ -15,7 +16,13 @@ export const TrainingItemDay = ({
     >
       <View style={styles.trainingContainer}>
         <View style={styles.trainingImageContainer}>
-          <Image style={styles.trainingImage} source={image} />
+          <Image
+            style={styles.trainingImage}
+            source={image}
+            onError={(error) => {
+              console.log(error);
+            }}
+          />
         </View>
         <View style={styles.trainingInfoContainer}>
           <Text style={[styles.trainingTextGray, typography.bounded]}>
@@ -52,6 +59,8 @@ const styles = StyleSheet.create({
   },
   trainingImageContainer: {
     alignItems: "center",
+    backgroundColor: "rgba(239, 239, 239, 0.39)",
+    borderRadius: 30,
   },
   trainingImage: {
     width: 175,

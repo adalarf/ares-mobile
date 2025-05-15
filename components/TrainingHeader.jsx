@@ -9,6 +9,7 @@ import {
 import { typography } from "../styles/typography";
 import PropTypes from "prop-types";
 import { useNavigation } from "@react-navigation/native";
+import LevelCircle from "./LevelCircle";
 
 export const TrainingHeader = ({
   title = "Тренировки",
@@ -26,9 +27,10 @@ export const TrainingHeader = ({
           {subtitle}
         </Text>
       </View>
-      <View style={styles.levelCircle}>
-        <Text style={styles.levelText}>1</Text>
-      </View>
+      {/*<View style={styles.levelCircle}>*/}
+      {/*  <Text style={styles.levelText}>1</Text>*/}
+      {/*</View>*/}
+      <LevelCircle />
     </View>
   );
 };

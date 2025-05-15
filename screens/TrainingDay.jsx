@@ -23,11 +23,7 @@ export const TrainingDayScreen = ({ route, navigation }) => {
             {dayData.exercises.map((exercise, idx) => (
               <TrainingItemDay
                 key={exercise.exercise_id}
-                image={
-                  exercise.image
-                    ? { uri: exercise.image }
-                    : require("../assets/training-plug.png")
-                }
+                image={{ uri: exercise.image }}
                 date={`${idx + 1}. ${exercise.name} ${exercise.sets_number}x${exercise.repetitions}`}
                 xp={exercise.expirience}
                 gems={exercise.gems}

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { typography } from "../styles/typography";
+import LevelCircle from "../components/LevelCircle";
 
 export const SettingsScreen = ({ navigation }) => {
   const handleLogout = async () => {
@@ -39,9 +40,10 @@ export const SettingsScreen = ({ navigation }) => {
           <Text style={styles.gemsCount}>Настройки</Text>
         </View>
 
-        <View style={styles.levelCircle}>
-          <Text style={styles.levelText}>1</Text>
-        </View>
+        {/*<View style={styles.levelCircle}>*/}
+        {/*  <Text style={styles.levelText}>1</Text>*/}
+        {/*</View>*/}
+        <LevelCircle />
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}

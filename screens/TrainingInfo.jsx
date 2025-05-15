@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   ScrollView,
   ImageBackground,
@@ -10,11 +9,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { typography } from "../styles/typography";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import Feather from "react-native-vector-icons/Feather";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Image } from "expo-image";
 
 export const TrainingInfoScreen = ({ navigation, route }) => {
   const description = route?.params?.description;
@@ -26,28 +22,21 @@ export const TrainingInfoScreen = ({ navigation, route }) => {
       style={styles.background}
       source={require("../assets/training-background.png")}
     >
-      <ScrollView
-        style={[styles.container, { paddingTop: top, paddingBottom: bottom }]}
-      >
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Image
-              source={require("../assets/back-icon.png")}
-              style={styles.menuIcon}
-            />
-          </TouchableOpacity>
-          <Text style={[styles.headerText, typography.bounded]}>
-            Информация об упражнении
-          </Text>
-          <View style={{ width: 30 }} />
-        </View>
-        <View style={styles.imageContainer}>
+      <View style={[styles.headerContainer, { paddingTop: top }]}>
+        <TouchableOpacity onPress={navigation.goBack}>
           <Image
-            style={styles.characterImage}
-            source={
-              image ? { uri: image } : require("../assets/training-plug.png")
-            }
+            source={require("../assets/back-icon.png")}
+            style={styles.menuIcon}
           />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, typography.bounded]}>
+          Информация об упражнении
+        </Text>
+        <View style={{ width: 30 }} />
+      </View>
+      <ScrollView style={[styles.container, { paddingBottom: bottom }]}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.characterImage} source={{ uri: image }} />
         </View>
         <View style={styles.instructionsContainer}>
           <Text style={[styles.instructionsHeader, typography.bounded]}>
@@ -71,7 +60,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
   },
   headerText: {
     fontSize: 24,
@@ -80,12 +70,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    position: "relative",
+    width: Dimensions.get("window").width - 40,
+    aspectRatio: 1,
+    backgroundColor: "#9E9E9E",
+    borderRadius: 44,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.74)",
   },
   characterImage: {
-    width: 300,
-    height: 200,
-    borderRadius: 10,
+    width: "100%",
+    height: "100%",
     resizeMode: "contain",
   },
   instructionsContainer: {

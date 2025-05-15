@@ -58,7 +58,7 @@ function HeaderWithGems({ leftElement }) {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
-    borderRadius: 20,
     bottom: 0,
     left: 0,
   },

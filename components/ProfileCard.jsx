@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
+import { authService } from "../services/api/authService";
+import { get } from "lodash";
 
 function ProfileCard() {
+  const [data, setData] = React.useState({});
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const token = await authService.get_token();
+      const response = await fetch("http://51.250.36.219:8000/stats/info", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setData(data);
+      console.log("Data from API:", data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <View style={{ paddingTop: 20 }}>
       <Image style={styles.corona} source={require("../assets/corona.png")} />
@@ -11,7 +37,7 @@ function ProfileCard() {
         <BlurView intensity={20} tint="dark" style={styles.blur}>
           <View style={styles.mainContent}>
             <View style={styles.gemsContainer}>
-              <Text style={styles.gemsCount}>100</Text>
+              <Text style={styles.gemsCount}>{get(data, "gems", 0)}</Text>
               <Image
                 source={require("../assets/gem.png")}
                 style={styles.gemIcon}
@@ -19,12 +45,12 @@ function ProfileCard() {
             </View>
             <View style={styles.progress}>
               <View style={styles.circle}>
-                <Text style={styles.level}>1</Text>
+                <Text style={styles.level}>{get(data, "level", 0)}</Text>
               </View>
               <LinearGradient
                 style={{
                   width: "100%",
-                  height: "60%",
+                  height: `${(get(data, "experience_current", 0) / get(data, "experience_to_next_level", 1)) * 100}%`,
                 }}
                 colors={["#E691C054", "#FF008C"]}
               />

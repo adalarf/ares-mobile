@@ -15,6 +15,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import PieChart from "react-native-pie-chart";
 import { useFocusEffect } from "@react-navigation/native";
 import { typography } from "../styles/typography";
+import LevelCircle from "../components/LevelCircle";
 
 function Nutrition({ navigation }) {
   const [nutritionData, setNutritionData] = React.useState({});
@@ -95,9 +96,10 @@ function Nutrition({ navigation }) {
           />
         </TouchableOpacity>
         <Text style={styles.gemsCount}>Питание</Text>
-        <View style={styles.levelCircle}>
-          <Text style={styles.levelText}>1</Text>
-        </View>
+        {/*<View style={styles.levelCircle}>*/}
+        {/*  <Text style={styles.levelText}>1</Text>*/}
+        {/*</View>*/}
+        <LevelCircle />
       </View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={[styles.nutritionHeader, { gap: 8 }]}>
