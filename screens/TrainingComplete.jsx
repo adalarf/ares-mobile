@@ -6,146 +6,186 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
-import { typography } from "../styles/typography";
+import { textStyles, typography } from "../styles/typography";
+import { LinearGradient } from "expo-linear-gradient";
+import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { get } from "lodash";
 
-export const TrainingCompleteScreen = ({ navigation }) => {
+export const TrainingCompleteScreen = ({ navigation, route }) => {
+  const { exercise } = route.params;
+
   return (
     <ImageBackground
       style={styles.background}
-      source={require("../assets/training-background.png")}
+      source={require("../assets/complete_exercise.png")}
     >
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <View style={styles.imageContainer}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require("../assets/cross.png")}
+            style={styles.menuIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <LinearGradient
+        style={styles.container}
+        colors={["#7F60DD", "#6A76FF", "#FF01A1", "#FF01A1"]}
+      >
+        <LinearGradient
+          colors={["#6E4E79", "#9E4ABA", "#804A93"]}
+          style={{ borderRadius: 21, padding: 17, paddingBottom: 20 }}
+        >
+          <View style={{ height: 170 }}>
+            <LinearGradient
+              colors={[
+                "#FFEB00",
+                "#FFEB00",
+                "#FC9B5F",
+                "#F849C1",
+                "#FF00A1",
+              ].reverse()}
+              start={[0, 0]}
+              end={[1, 1]}
+              style={styles.imageContainer}
+            >
+              <View style={styles.imageContainer2} />
+            </LinearGradient>
             <Image
               style={styles.characterImage}
               source={require("../assets/complete-character.png")}
             />
-            <Text style={[styles.congratulationsText, typography.bounded]}>
-              Поздравляем!
-            </Text>
+            <LinearGradient
+              colors={[
+                "rgba(255,235,0,0.2)",
+                "rgba(252,155,95,0.2)",
+                "rgba(255,0,161,0.2)",
+              ].reverse()}
+              start={[0, 0]}
+              end={[1, 1]}
+              style={styles.line}
+            />
           </View>
-          <Text style={[styles.trainingTitle, typography.bounded]}>
-            Тренировка 1
+          <Text style={[styles.title, typography.bounded]}>
+            {get(exercise, "name", "")}{" "}
           </Text>
-          <View style={styles.exercisesList}>
-            <Text style={[styles.exerciseText, typography.bounded]}>
-              1. Отжимания 10x3
-            </Text>
-            <Text style={[styles.exerciseText, typography.bounded]}>
-              2. Приседания 20x3
-            </Text>
-            <Text style={[styles.exerciseText, typography.bounded]}>
-              3. Выпады 10x2
-            </Text>
-            <Text style={[styles.exerciseText, typography.bounded]}>
-              4. Скручивания 10x3
-            </Text>
-            <Text style={[styles.exerciseText, typography.bounded]}>
-              5. Махи ногами 15x3
-            </Text>
-          </View>
-          <View style={styles.rewardsContainer}>
-            <Text style={[styles.rewardText, typography.bounded]}>50 XP</Text>
-            <View style={styles.gemsContainer}>
-              <Text style={[styles.rewardText, typography.bounded]}>50</Text>
+          <View style={styles.textContainer}>
+            <View style={styles.row}>
+              <Text style={[styles.exerciseText, typography.bounded]}>
+                1. {get(exercise, "name", "")} {get(exercise, "repetitions")}x
+                {get(exercise, "sets_number")}
+              </Text>
               <Image
-                style={styles.gemIcon}
-                source={require("../assets/gem.png")}
+                source={require("../assets/done.png")}
+                style={styles.icon}
               />
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("mainPage")}
-            style={styles.acceptButton}
+          <View style={[styles.row, { paddingHorizontal: 10 }]}>
+            <Text style={[textStyles.buttonText, typography.bounded]}>
+              {get(exercise, "expirience", 0)} XP
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text style={[textStyles.buttonText, typography.bounded]}>
+                {get(exercise, "gems", 0)}
+              </Text>
+              <Image
+                source={require("../assets/gems.png")}
+                style={styles.gems}
+              />
+            </View>
+          </View>
+          <CustomButtonWithGradientBorder
+            onPress={() => {
+              navigation.goBack();
+            }}
+            style={styles.button}
           >
-            <Text style={[styles.buttonText, typography.bounded]}>Принять</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <Text style={[textStyles.buttonText, typography.bounded]}>
+              Принять
+            </Text>
+          </CustomButtonWithGradientBorder>
+        </LinearGradient>
+      </LinearGradient>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   background: {
     flex: 1,
     width: "100%",
     height: "100%",
   },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  button: {
+    width: 200,
+    alignSelf: "center",
   },
-  card: {
-    backgroundColor: "rgba(128, 0, 128, 0.9)",
-    borderRadius: 20,
-    padding: 20,
-    width: "90%",
-    alignItems: "center",
+  menuIcon: {
+    width: 40,
+    height: 40,
+    resizeMode: "contain",
   },
-  imageContainer: {
-    alignItems: "center",
-    marginBottom: 20,
+  icon: {
+    width: 20,
+    height: 20,
+    resizeMode: "cover",
   },
-  characterImage: {
-    width: 150,
-    height: 150,
-  },
-  congratulationsText: {
-    fontSize: 24,
-    color: "#FFFFFF",
-    marginTop: 10,
-  },
-  trainingTitle: {
-    fontSize: 20,
-    color: "#FFFFFF",
-    marginBottom: 20,
-  },
-  exercisesList: {
-    width: "100%",
-    marginBottom: 20,
-  },
-  exerciseText: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginBottom: 5,
-  },
-  checkmark: {
-    fontSize: 16,
-    color: "#00FF00",
-    position: "absolute",
-    right: 20,
-  },
-  rewardsContainer: {
+  header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "80%",
-    marginBottom: 20,
-  },
-  rewardText: {
-    fontSize: 18,
-    color: "#FFFFFF",
-  },
-  gemsContainer: {
-    flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 60,
   },
-  gemIcon: {
-    width: 35,
-    height: 35,
-    marginLeft: 5,
+  container: {
+    marginTop: 20,
+    width: Dimensions.get("window").width - 100,
+    alignSelf: "center",
+    borderRadius: 22,
+    padding: 1,
   },
-  acceptButton: {
-    backgroundColor: "#FFFFFF",
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    borderRadius: 10,
+  imageContainer: {
+    height: 150,
+    borderRadius: 48,
+    padding: 1,
+    marginTop: 20,
   },
-  buttonText: {
-    fontSize: 18,
-    color: "purple",
+  imageContainer2: {
+    flex: 1,
+    backgroundColor: "#ae8bba",
+    borderRadius: 47,
+  },
+  characterImage: {
+    position: "absolute",
+    width: "100%",
+    height: 220,
+    zIndex: 999,
+    bottom: -27,
+    alignSelf: "center",
+    resizeMode: "contain",
+  },
+  title: {
+    ...textStyles.buttonText,
+    marginTop: 20,
+    textAlign: "center",
+  },
+  exerciseText: {
+    color: "rgba(255, 255, 255, 0.74)",
+    fontSize: 11,
+  },
+  textContainer: {
+    paddingVertical: 20,
+  },
+  gems: {
+    height: 40,
+    width: 40,
+    resizeMode: "contain",
   },
 });

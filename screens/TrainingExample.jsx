@@ -11,10 +11,45 @@ import {
 import { typography } from "../styles/typography";
 import { useNavigation } from "@react-navigation/native";
 import { TrainingHeader } from "../components/TrainingHeader";
+import { authService } from "../services/api/authService";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { get } from "lodash";
+
+const onComplete = async (exercise, navigation) => {
+  try {
+    const token = await authService.get_token();
+
+    const response = await axios.post(
+      "http://51.250.36.219:8000/training/complete_exercise/" +
+        get(exercise, "exercise_id", 1),
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    console.log("Response:", response.status);
+
+    if (response.status === 200) {
+      navigation.navigate("trainingComplete", { exercise });
+    } else {
+      console.error("Failed to send workout plan:", response.status);
+    }
+  } catch (error) {
+    console.error(
+      "Error sending workout plan:",
+      JSON.stringify(error, null, 2),
+    );
+  }
+};
 
 export const TrainingExampleScreen = ({ route }) => {
   const navigation = useNavigation();
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(2);
   const [isRunning, setIsRunning] = useState(false);
   const { exercise } = route.params;
 
@@ -26,7 +61,7 @@ export const TrainingExampleScreen = ({ route }) => {
       }, 1000);
     } else if (timeLeft === 0) {
       setIsRunning(false);
-      navigation.navigate("trainingComplete");
+      onComplete(exercise, navigation);
     }
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, navigation]);

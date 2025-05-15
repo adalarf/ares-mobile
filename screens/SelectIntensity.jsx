@@ -4,6 +4,7 @@ import { BackgroundLayout } from "../components/layout/BackgroundLayout";
 import { ScreenHeader } from "../components/common/ScreenHeader";
 import { styles } from "./SelectLoad";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { handleSelect } from "../services/api/handleSelection";
 
 function SelectIntensity({ navigation }) {
   return (
@@ -12,7 +13,13 @@ function SelectIntensity({ navigation }) {
         <ScreenHeader lines={["Какой у вас", "уровень", "подготовки?"]} />
         <View style={styles.buttonContainer}>
           <CustomButtonWithGradientBorder
-          // onPress={() => sendWorkoutPlan("physical", navigation)}
+            onPress={async () => {
+              await handleSelect(
+                { intensity: "low" },
+                navigation,
+                "selectFoodRestrictions",
+              );
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={[styles.mainText, { textAlign: "center" }]}>
@@ -24,7 +31,13 @@ function SelectIntensity({ navigation }) {
             </View>
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
-          // onPress={() => sendWorkoutPlan("intellegentive", navigation)}
+            onPress={async () => {
+              await handleSelect(
+                { intensity: "middle" },
+                navigation,
+                "selectFoodRestrictions",
+              );
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={[styles.mainText, , { textAlign: "center" }]}>
@@ -36,7 +49,13 @@ function SelectIntensity({ navigation }) {
             </View>
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
-          // onPress={() => sendWorkoutPlan("intellegentive", navigation)}
+            onPress={async () => {
+              await handleSelect(
+                { intensity: "high" },
+                navigation,
+                "selectFoodRestrictions",
+              );
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={[styles.mainText, , { textAlign: "center" }]}>

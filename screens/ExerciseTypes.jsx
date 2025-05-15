@@ -71,7 +71,7 @@ export const ExerciseTypesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("screen").height,
+    height: Dimensions.get("screen").height * 1.2,
   },
   header: {
     position: "absolute",

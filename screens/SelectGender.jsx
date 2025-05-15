@@ -10,8 +10,34 @@ import {
 import { textStyles } from "../styles/typography";
 import { handleSelect } from "../services/api/handleSelection";
 import { ScreenHeader } from "../components/common/ScreenHeader";
+import { authService } from "../services/api/authService";
 
 export const SelectGenderScreen = ({ navigation }) => {
+  const setAvatar = async (gender) => {
+    const avatar_url =
+      gender === "male"
+        ? "https://storage.yandexcloud.net/ares-bucket/normal-man.png"
+        : "https://storage.yandexcloud.net/ares-bucket/normal-female.png";
+    try {
+      const token = await authService.get_token();
+      const response = await fetch(
+        "http://51.250.36.219:8000/stats/set_avatar",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ avatar_url }),
+        },
+      );
+      if (response.status === 200) {
+        console.log("Avatar set successfully");
+      }
+    } catch (error) {
+      console.error("Error setting avatar:", error);
+    }
+  };
   return (
     <View>
       <ImageBackground
@@ -24,9 +50,10 @@ export const SelectGenderScreen = ({ navigation }) => {
           <View style={styles.genderSelectionContainer}>
             <TouchableOpacity
               style={styles.genderContainer}
-              onPress={() =>
-                handleSelect({ gender: "female" }, navigation, "selectGoal")
-              }
+              onPress={() => {
+                handleSelect({ gender: "female" }, navigation, "selectGoal");
+                setAvatar("female");
+              }}
             >
               <Image
                 source={require("../assets/woman-gender.png")}
@@ -36,9 +63,10 @@ export const SelectGenderScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.genderContainer}
-              onPress={() =>
-                handleSelect({ gender: "male" }, navigation, "selectGoal")
-              }
+              onPress={() => {
+                handleSelect({ gender: "male" }, navigation, "selectGoal");
+                setAvatar("male");
+              }}
             >
               <Image
                 source={require("../assets/man-gender.png")}

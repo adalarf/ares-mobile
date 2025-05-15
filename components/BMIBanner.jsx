@@ -2,24 +2,53 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { typography } from "../styles/typography";
 import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useEffect } from "react";
+import { authService } from "../services/api/authService";
+import { get } from "lodash";
 
 export const BMIBanner = () => {
+  const [data, setData] = React.useState({});
+
+  useEffect(() => {
+    getBmiData();
+  }, []);
+
+  const getBmiData = async () => {
+    try {
+      const token = await authService.get_token();
+      const response = await fetch(
+        "http://51.250.36.219:8000/stats/get_calories_info",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const data = await response.json();
+      setData(data);
+      console.log("Data from API:", data);
+    } catch (error) {
+      console.error("Error fetching BMI data:", error);
+    }
+  };
+
   const widthAndHeight = 80;
   const series = [
     {
-      value: 20,
+      value: get(data, "body_mass_index"),
       color: "transparent",
       label: {
-        text: "20",
+        text: Number(get(data, "body_mass_index")).toFixed(2),
         fontWeight: "bold",
         fill: "#fff",
         fontSize: 10,
-        offsetX: 7,
-        offsetY: -7,
+        offsetX: 5,
+        // offsetY: -7,
       },
     },
-    { value: 100, color: "#E8E8E8" },
+    { value: 100 - get(data, "body_mass_index"), color: "#E8E8E8" },
   ];
 
   return (

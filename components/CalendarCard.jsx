@@ -2,8 +2,47 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { typography } from "../styles/typography";
 import { Calendar } from "react-native-calendars";
 import { LinearGradient } from "expo-linear-gradient";
+import { authService } from "../services/api/authService";
+import { useEffect, useState, useCallback } from "react";
+import { get } from "lodash";
+import { useNavigation } from "@react-navigation/native";
 
 export const CalendarCard = () => {
+  const [workoutData, setWorkoutData] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchWorkoutPlan = async () => {
+      try {
+        const token = await authService.get_token();
+        const response = await fetch(
+          "http://51.250.36.219:8000/training/workout_plan",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        const data = await response.json();
+        console.log("Workout Plan Data:", data);
+        setWorkoutData(data);
+      } catch (error) {
+        console.error("Ошибка загрузки плана тренировок:", error);
+      }
+    };
+    fetchWorkoutPlan();
+  }, []);
+
+  const getTitle = useCallback(() => {
+    const today = new Date().toISOString().split("T")[0];
+    const workout = workoutData?.days?.find((item) => item.date === today);
+    return workout
+      ? `День  ${get(workout, "muscle_group", "")}`
+      : "Нет упражнений";
+  }, [workoutData]);
+
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -13,9 +52,7 @@ export const CalendarCard = () => {
           resizeMode="contain"
         />
       </View>
-      <Text style={[styles.title, typography.bounded]}>
-        Календарь упражнений
-      </Text>
+      <Text style={[styles.title, typography.bounded]}>{getTitle()}</Text>
       <View>
         <Calendar
           firstDay={1}
@@ -58,7 +95,22 @@ export const CalendarCard = () => {
                   : "white";
 
             return (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  const workout = workoutData?.days?.find(
+                    (item) => item.date === date.dateString,
+                  );
+                  if (workout) {
+                    console.log("Workout Data:", workout);
+                    navigation.navigate("trainingDay", {
+                      dayId: workout.id,
+                      dayData: workout,
+                    });
+                  } else {
+                    console.log("No workout data for this date.");
+                  }
+                }}
+              >
                 <DayWrapper style={styles.dayContainer} isToday={isToday}>
                   <Text
                     style={{
