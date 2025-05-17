@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import { BMIBanner } from "../components/BMIBanner";
 import { CaloriesBanner } from "../components/CaloriesBanner";
@@ -18,68 +19,104 @@ import { CalendarCard } from "../components/CalendarCard";
 import { DirectoryCard } from "../components/DirectoryCard";
 import { NutritionCard } from "../components/NutritionCard";
 import HeaderWithGems from "../components/HeaderWithGems";
+import {
+  getAvatar,
+  getBmiData,
+  getStatsInfo,
+  getWorkoutPlan,
+} from "../hooks/useMainRequests";
+import { useEffect, useState } from "react";
 
 export const MainPage = ({ navigation }) => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    getInfo();
+  }, []);
+
+  const getInfo = () => {
+    setIsRefreshing(true);
+    Promise.all([
+      getWorkoutPlan(),
+      getStatsInfo(),
+      getBmiData(),
+      getAvatar(),
+    ]).finally(() => setIsRefreshing(false));
+  };
+
   return (
-    <ScrollView
-      pagingEnabled={false}
-      decelerationRate="normal"
-      bounces={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.scrollViewContent}
-    >
-      <ImageBackground
-        source={require("../assets/main-page.png")}
-        style={styles.backgroundImage}
-        imageStyle={styles.image}
-        resizeMode="cover"
-      >
-        <HeaderWithGems
-          leftElement={
-            <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-              <Image
-                source={require("../assets/burger-menu.png")}
-                style={styles.menuIcon}
-              />
-            </TouchableOpacity>
-          }
-        />
-
-        <BMIBanner />
-        <CaloriesBanner />
-
-        <View style={styles.cardsContainer}>
-          <GoalCard />
-          <AvatarCard />
-        </View>
-
-        <View style={[styles.cardsContainer]}>
-          <ShopCard navigation={navigation} style={{ marginTop: -210 }} />
-          <ShopCard
-            navigation={navigation}
-            style={{ opacity: 0, marginTop: -210, zIndex: -1 }}
+    <View style={styles.container}>
+      <ScrollView
+        decelerationRate="normal"
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => {
+              getInfo();
+            }}
+            tintColor={"#fff"}
+            colors={["#fff"]}
+            refreshing={isRefreshing}
+            titleColor={"#fff"}
+            title={"Обновление..."}
           />
-        </View>
+        }
+      >
+        <ImageBackground
+          source={require("../assets/main-page.png")}
+          style={styles.backgroundImage}
+          imageStyle={styles.image}
+          resizeMode="cover"
+        >
+          <HeaderWithGems
+            leftElement={
+              <TouchableOpacity onPress={() => navigation.navigate("settings")}>
+                <Image
+                  source={require("../assets/burger-menu.png")}
+                  style={styles.menuIcon}
+                />
+              </TouchableOpacity>
+            }
+          />
 
-        <CalendarCard />
+          <BMIBanner />
+          <CaloriesBanner />
 
-        <View style={[styles.cardsContainer, { marginTop: 10 }]}>
-          <NutritionCard navigation={navigation} />
-          <DirectoryCard navigation={navigation} />
-        </View>
+          <View style={styles.cardsContainer}>
+            <GoalCard />
+            <AvatarCard />
+          </View>
 
-        <View style={styles.cardsContainer}>
-          <TrainingCard navigation={navigation} />
-          <MinigamesCard navigation={navigation} />
-        </View>
-      </ImageBackground>
-    </ScrollView>
+          <View style={[styles.cardsContainer]}>
+            <ShopCard navigation={navigation} style={{ marginTop: -210 }} />
+            <ShopCard
+              navigation={navigation}
+              style={{ opacity: 0, marginTop: -210, zIndex: -1 }}
+            />
+          </View>
+
+          <CalendarCard />
+
+          <View style={[styles.cardsContainer, { marginTop: 10 }]}>
+            <NutritionCard navigation={navigation} />
+            <DirectoryCard navigation={navigation} />
+          </View>
+
+          <View style={styles.cardsContainer}>
+            <TrainingCard navigation={navigation} />
+            <MinigamesCard navigation={navigation} />
+          </View>
+        </ImageBackground>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollViewContent: {
-    flexGrow: 1,
+  container: {
+    backgroundColor: "#a3a6a9",
+    width: "100%",
+    height: Dimensions.get("window").height,
   },
   backgroundImage: {
     width: Dimensions.get("window").width,

@@ -4,8 +4,10 @@ import { ScreenHeader } from "../components/common/ScreenHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
 import { handleSelect } from "../services/api/handleSelection";
+import useStore from "../services/store";
 
 export const SelectLoadScreen = ({ navigation }) => {
+  const setData = useStore((state) => state.setData);
   return (
     <BackgroundLayout>
       <View style={styles.container}>
@@ -14,7 +16,7 @@ export const SelectLoadScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <CustomButtonWithGradientBorder
             onPress={async () => {
-              await AsyncStorage.setItem("training_level", "low");
+              setData("training_level", "low");
               await handleSelect(
                 { activity: "low" },
                 navigation,
@@ -31,7 +33,7 @@ export const SelectLoadScreen = ({ navigation }) => {
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
             onPress={async () => {
-              await AsyncStorage.setItem("training_level", "middle");
+              setData("training_level", "middle");
               await handleSelect(
                 { activity: "middle" },
                 navigation,
@@ -48,7 +50,7 @@ export const SelectLoadScreen = ({ navigation }) => {
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
             onPress={async () => {
-              await AsyncStorage.setItem("training_level", "high");
+              setData("training_level", "high");
               await handleSelect(
                 { activity: "high" },
                 navigation,
@@ -65,7 +67,7 @@ export const SelectLoadScreen = ({ navigation }) => {
           </CustomButtonWithGradientBorder>
           <CustomButtonWithGradientBorder
             onPress={async () => {
-              await AsyncStorage.setItem("training_level", "high");
+              setData("training_level", "high");
               await handleSelect(
                 { activity: "high" },
                 navigation,

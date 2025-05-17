@@ -19,8 +19,6 @@ import { ExercisesScreen } from "./Exercises";
 import { TrainingInfoScreen } from "./TrainingInfo";
 import { TrainingCompleteScreen } from "./TrainingComplete";
 import BlitzInfo from "./BlitzInfo";
-import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import BlitzPoll from "./BlitzPoll";
 import Profile from "./Profile";
 import Store from "./Store";
@@ -30,43 +28,16 @@ import NutritionDishes from "./NutritionDishes";
 import SelectIntensity from "./SelectIntensity";
 import SelectFoodRestrictions from "./SelectFoodRestrictions";
 import SelectProductGroup from "./SelectProductGroup";
+import LaunchScreen from "./LaunchScreen";
+import NavigationService from "../services/navigationService";
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="home" component={HomeScreen} />
-    <Stack.Screen name="authorization" component={AuthorizationScreen} />
-    <Stack.Screen name="selectGender" component={SelectGenderScreen} />
-    <Stack.Screen name="selectGoal" component={SelectGoalScreen} />
-    <Stack.Screen name="minigames" component={MiniGamesScreen} />
-    <Stack.Screen name="selectActivity" component={SelectActivityScreen} />
-    <Stack.Screen name="selectParameters" component={SelectParametersScreen} />
-    <Stack.Screen name="selectPlace" component={SelectPlaceScreen} />
-    <Stack.Screen name="selectLoad" component={SelectLoadScreen} />
-    <Stack.Screen name="mainPage" component={MainPage} />
-    <Stack.Screen name="settings" component={SettingsScreen} />
-    <Stack.Screen name="training" component={TrainingScreen} />
-    <Stack.Screen name="trainingDay" component={TrainingDayScreen} />
-    <Stack.Screen name="trainingExample" component={TrainingExampleScreen} />
-    <Stack.Screen name="trainingComplete" component={TrainingCompleteScreen} />
-    <Stack.Screen name="blitzInfo" component={BlitzInfo} />
-    <Stack.Screen name="blitzPoll" component={BlitzPoll} />
-    <Stack.Screen name="profile" component={Profile} />
-    <Stack.Screen name="store" component={Store} />
-    <Stack.Screen name="nutrition" component={Nutrition} />
-    <Stack.Screen name="nutritionDishes" component={NutritionDishes} />
-    <Stack.Screen name="selectIntensity" component={SelectIntensity} />
-    <Stack.Screen name="selectProductGroup" component={SelectProductGroup} />
-    <Stack.Screen
-      name="selectFoodRestrictions"
-      component={SelectFoodRestrictions}
-    />
-  </Stack.Navigator>
-);
-
 const MainStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Navigator
+    screenOptions={{ headerShown: false }}
+    initialRouteName={"launch"}
+  >
     <Stack.Screen name="mainPage" component={MainPage} />
     <Stack.Screen name="settings" component={SettingsScreen} />
     <Stack.Screen name="exerciseTypes" component={ExerciseTypesScreen} />
@@ -97,30 +68,19 @@ const MainStack = () => (
       name="selectFoodRestrictions"
       component={SelectFoodRestrictions}
     />
+    <Stack.Screen name="launch" component={LaunchScreen} />
   </Stack.Navigator>
 );
 
 export const Navigation = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [checkingAuth, setCheckingAuth] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = await AsyncStorage.getItem("authToken");
-      setIsAuthenticated(!!token);
-      setCheckingAuth(false);
-    };
-    checkAuth();
-  }, []);
-
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={NavigationService._navigator}>
       <StatusBar
         barStyle="light-content"
         translucent={true}
         backgroundColor={"transparent"}
       />
-      {isAuthenticated ? <MainStack /> : <AuthStack />}
+      <MainStack />
     </NavigationContainer>
   );
 };

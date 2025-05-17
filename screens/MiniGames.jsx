@@ -11,25 +11,19 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authService } from "../services/api/authService";
 import { typography } from "../styles/typography";
+import { createRequest } from "../hooks/useMainRequests";
 
 export const MiniGamesScreen = ({ navigation }) => {
   const handleRandomTraining = async () => {
     try {
-      const training_level = "middle";
+      const training_level = await AsyncStorage.getItem("training_level");
       const goal = await AsyncStorage.getItem("goal");
-      const training_place = "Дом";
-      const token = await authService.get_token();
-      let response = await fetch(
-        "http://51.250.36.219:8000/training/random_exercise",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ training_level, goal, training_place }),
-        },
-      );
+      const training_place = await AsyncStorage.getItem("training_place");
+      let response = await createRequest("training/random_exercise", "POST", {
+        training_level,
+        goal,
+        training_place,
+      });
       let data = await response.json();
       console.log("Random Training Data:", data);
       navigation.navigate("trainingExample", { exercise: data });

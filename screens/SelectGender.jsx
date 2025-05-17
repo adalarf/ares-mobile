@@ -10,7 +10,7 @@ import {
 import { textStyles } from "../styles/typography";
 import { handleSelect } from "../services/api/handleSelection";
 import { ScreenHeader } from "../components/common/ScreenHeader";
-import { authService } from "../services/api/authService";
+import { createRequest } from "../hooks/useMainRequests";
 
 export const SelectGenderScreen = ({ navigation }) => {
   const setAvatar = async (gender) => {
@@ -19,19 +19,8 @@ export const SelectGenderScreen = ({ navigation }) => {
         ? "https://storage.yandexcloud.net/ares-bucket/normal-man.png"
         : "https://storage.yandexcloud.net/ares-bucket/normal-female.png";
     try {
-      const token = await authService.get_token();
-      const response = await fetch(
-        "http://51.250.36.219:8000/stats/set_avatar",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ avatar_url }),
-        },
-      );
-      if (response.status === 200) {
+      let res = await createRequest("stats/set_avatar", "POST", { avatar_url });
+      if (res.status === 200) {
         console.log("Avatar set successfully");
       }
     } catch (error) {

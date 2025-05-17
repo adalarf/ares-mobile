@@ -12,9 +12,7 @@ import { ScreenHeader } from "../components/common/ScreenHeader";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
 import { LinearGradient } from "expo-linear-gradient";
 import { textStyles } from "../styles/typography";
-import { authService } from "../services/api/authService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import { sendWorkoutPlan } from "../hooks/useMainRequests";
 
 const data = [
   {
@@ -53,41 +51,6 @@ const data = [
       "https://www.agroinvestor.ru/upload/iblock/d5a/d5a263ce9a694817ecb4b725cc36bb36.jpg",
   },
 ];
-
-const sendWorkoutPlan = async (navigation) => {
-  try {
-    const token = await authService.get_token();
-    const trainingLevel = await AsyncStorage.getItem("training_level");
-    const goal = await AsyncStorage.getItem("goal");
-    const trainingPlace = await AsyncStorage.getItem("training_place");
-
-    const response = await axios.post(
-      "http://51.250.36.219:8000/training/workout_plan",
-      {
-        training_level: trainingLevel,
-        goal: goal,
-        training_place: trainingPlace,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (response.status === 200) {
-      navigation.navigate("mainPage");
-    } else {
-      console.error("Failed to send workout plan:", response.status);
-    }
-  } catch (error) {
-    console.error(
-      "Error sending workout plan:",
-      JSON.stringify(error, null, 2),
-    );
-  }
-};
 
 function SelectProductGroup({ navigation }) {
   const [groups] = React.useState(data);
