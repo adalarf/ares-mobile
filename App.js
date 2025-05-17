@@ -1,7 +1,14 @@
-import { Navigation } from './screens/Navigation';
-import * as Font from 'expo-font';
-
+import { Navigation } from "./screens/Navigation";
+import { useFonts } from "expo-font";
 
 export default function App() {
-  return <Navigation/>;
-};
+  const [fontsLoaded] = useFonts({
+    Bounded: require("./assets/fonts/Bounded-Regular.ttf"),
+    "Forest-Smooth": require("./assets/fonts/ForestSmooth.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+  return <Navigation />;
+}

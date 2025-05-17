@@ -90,8 +90,12 @@ export const authService = {
 
   async get_token() {
     try {
-      // if (!token) return null;
       const token = useStore.getState().authToken;
+      if (!token) {
+        console.log("Token not found");
+        NavigationService.reset("authorization", 0);
+        return null;
+      }
       const payload = token.split(".")[1];
       const decoded = JSON.parse(
         atob(payload.replace(/-/g, "+").replace(/_/g, "/")),

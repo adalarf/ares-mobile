@@ -42,4 +42,9 @@ export const textStyles = {
     fontSize: 20,
     color: "#FFFFFF",
   },
+  text24: {
+    ...typography.bounded,
+    fontSize: 24,
+    color: "#FFFFFF",
+  },
 };

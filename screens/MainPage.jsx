@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#a3a6a9",
     width: "100%",
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("screen").height,
   },
   backgroundImage: {
     width: Dimensions.get("window").width,

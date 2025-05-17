@@ -6,9 +6,12 @@ import {
   Dimensions,
   Text,
   ScrollView,
+  Image,
+  TouchableOpacity,
 } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { createRequest } from "../hooks/useMainRequests";
+import { get } from "lodash";
 
 function BlitzPoll({
   navigation,
@@ -52,9 +55,36 @@ function BlitzPoll({
     console.log("BlitzPoll answer_id", answer_id);
 
     if (index < questions.length - 1) {
+      await sendAnswer(answer_id);
       setQuestion(questions[index + 1]);
       setIndex(index + 1);
       setTimeLeft(20);
+    } else {
+      console.log("BlitzPoll last question_id", question.question_id);
+      await sendAnswer(answer_id, true);
+    }
+  };
+
+  const sendAnswer = async (answer_id, isLast = false) => {
+    try {
+      let response = await createRequest("blitz/answer", "POST", {
+        answer_id,
+        question_id: question.question_id,
+        blitz_poll_id: data.blitz_poll_id,
+      });
+      if (response.status === 200) {
+        console.log("Answer sent successfully");
+        // Optional: Handle successful answer submission
+        let data = await response.json();
+        console.log("Answer data:", data);
+        if (isLast) {
+          navigation.navigate("pollComplete", {
+            poll_stats: get(data, "poll_stats", {}),
+          });
+        }
+      }
+    } catch (error) {
+      console.log("Error sending answer:", error);
     }
   };
 
@@ -65,14 +95,14 @@ function BlitzPoll({
         style={styles.backgroundImage}
       />
       <View style={styles.header}>
-        <Ionicons
-          name="close"
-          size={30}
-          color="white"
-          onPress={() => navigation.goBack()}
-        />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require("../assets/back-icon.png")}
+            style={styles.menuIcon}
+          />
+        </TouchableOpacity>
         <Text style={styles.gemsCount}>Блиц опрос</Text>
-        <View style={{ width: 30 }} />
+        <View style={{ width: 32 }} />
       </View>
       <View style={styles.gemsContainer}>
         <Text style={styles.gemsCount}>
@@ -109,6 +139,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: Dimensions.get("window").width,
     height: Dimensions.get("screen").height,
+  },
+  menuIcon: {
+    width: 32,
+    height: 32,
+    resizeMode: "contain",
   },
   header: {
     flexDirection: "row",

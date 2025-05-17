@@ -27,9 +27,6 @@ export const TrainingHeader = ({
           {subtitle}
         </Text>
       </View>
-      {/*<View style={styles.levelCircle}>*/}
-      {/*  <Text style={styles.levelText}>1</Text>*/}
-      {/*</View>*/}
       <LevelCircle />
     </View>
   );

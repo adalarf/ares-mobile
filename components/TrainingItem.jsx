@@ -1,5 +1,8 @@
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { typography } from "../styles/typography";
+import LockIcon from "../assets/svgs/LockIcon";
+import { get } from "lodash";
+import ArrowToRight from "../assets/svgs/ArrowToRight";
 
 export const TrainingItem = ({
   id,
@@ -32,12 +35,17 @@ export const TrainingItem = ({
         </Text>
         <View style={styles.trainingInfoContainer}>
           <Text style={[styles.trainingText, typography.bounded]}>{title}</Text>
-          <Text style={[styles.trainingTextGray, typography.bounded]}>
-            {day}
-          </Text>
-          <Text style={[styles.trainingTextGray, typography.bounded]}>
-            {date}
-          </Text>
+          <View style={styles.row}>
+            <View style={styles.dateContainer}>
+              <Text style={[styles.trainingTextGray, typography.bounded]}>
+                {day}
+              </Text>
+              <Text style={[styles.trainingTextGray, typography.bounded]}>
+                {date}
+              </Text>
+            </View>
+            {get(dayData, "is_active", false) ? <ArrowToRight /> : <LockIcon />}
+          </View>
           <View style={styles.gainContainer}>
             <Text style={[styles.trainingText, typography.bounded]}>
               {xp}XP
@@ -67,6 +75,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
   },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  dateContainer: {
+    gap: 8,
+  },
   trainingImageContainer: {
     alignItems: "center",
   },
@@ -83,7 +100,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     height: 140,
     justifyContent: "space-between",
-    paddingLeft: 30,
+    paddingLeft: 20,
     flex: 1,
   },
   gainContainer: {

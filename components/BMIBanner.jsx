@@ -1,9 +1,8 @@
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { typography } from "../styles/typography";
 import PieChart from "react-native-pie-chart";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect } from "react";
-import { authService } from "../services/api/authService";
+import React from "react";
 import { get } from "lodash";
 import useStore from "../services/store";
 

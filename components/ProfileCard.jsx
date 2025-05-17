@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { authService } from "../services/api/authService";
 import { get } from "lodash";
+import useStore from "../services/store";
+
+const diff = Dimensions.get("window").width / 402;
 
 function ProfileCard() {
   const [data, setData] = React.useState({});
+  const parameters = useStore((state) => state.parameters);
 
   useEffect(() => {
     getData();
@@ -84,9 +88,15 @@ function ProfileCard() {
           </View>
           <View style={styles.info}>
             <View style={styles.infoCard}>
-              <Text style={styles.infoText}>21 год</Text>
-              <Text style={styles.infoText}>180см</Text>
-              <Text style={styles.infoText}>80кг</Text>
+              <Text style={styles.infoText}>
+                {get(parameters, "age", 0)} год
+              </Text>
+              <Text style={styles.infoText}>
+                {get(parameters, "height", 0)}см
+              </Text>
+              <Text style={styles.infoText}>
+                {get(parameters, "weight", 0)}кг
+              </Text>
             </View>
           </View>
         </BlurView>
@@ -117,8 +127,8 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   progress: {
-    width: 54,
-    height: 230,
+    width: 54 * diff,
+    height: 230 * diff,
     borderRadius: 26,
     borderWidth: 1,
     borderColor: "#fff",
@@ -127,10 +137,10 @@ const styles = StyleSheet.create({
   },
   circle: {
     position: "absolute",
-    left: 4,
-    top: 4,
-    width: 44,
-    height: 44,
+    left: 4 * diff,
+    top: 4 * diff,
+    width: 44 * diff,
+    height: 44 * diff,
     borderRadius: 22,
     borderColor: "#fff",
     borderWidth: 1,
@@ -159,7 +169,7 @@ const styles = StyleSheet.create({
   infoCard: {
     position: "absolute",
     height: 40,
-    width: 230,
+    width: 230 * diff,
     borderRadius: 30,
     flexDirection: "row",
     alignItems: "center",

@@ -30,6 +30,7 @@ import SelectFoodRestrictions from "./SelectFoodRestrictions";
 import SelectProductGroup from "./SelectProductGroup";
 import LaunchScreen from "./LaunchScreen";
 import NavigationService from "../services/navigationService";
+import { PollComplete } from "./PollComplete";
 
 const Stack = createNativeStackNavigator();
 
@@ -68,6 +69,7 @@ const MainStack = () => (
       name="selectFoodRestrictions"
       component={SelectFoodRestrictions}
     />
+    <Stack.Screen name="pollComplete" component={PollComplete} />
     <Stack.Screen name="launch" component={LaunchScreen} />
   </Stack.Navigator>
 );

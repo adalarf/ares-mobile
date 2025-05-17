@@ -8,20 +8,24 @@ export const AvatarCard = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image
-          source={require("../assets/avatar-icon.png")}
-          style={styles.icon}
-        />
+      <View style={styles.textCotainer}>
+        <View style={styles.iconContainer}>
+          <Image
+            source={require("../assets/avatar-icon.png")}
+            style={styles.icon}
+          />
+        </View>
+        <Text style={[styles.title, typography.bounded]}>Ваш аватар</Text>
       </View>
-      <Text style={[styles.title, typography.bounded]}>Ваш аватар</Text>
-      {!avatar ? null : (
-        <Image
-          source={{ uri: avatar }}
-          style={styles.avatarImage}
-          cachePolicy={"disk"}
-        />
-      )}
+      <View style={styles.avatarContainer}>
+        {!avatar ? null : (
+          <Image
+            source={{ uri: avatar }}
+            style={styles.avatarImage}
+            cachePolicy={"disk"}
+          />
+        )}
+      </View>
     </View>
   );
 };
@@ -35,6 +39,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.3)",
     height: 410,
+  },
+  avatarContainer: {
+    width: "100%",
+    flex: 2,
+  },
+  textCotainer: {
+    width: "100%",
+    flex: 1,
   },
   iconContainer: {
     width: 40,
@@ -54,11 +66,10 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 18,
     textAlign: "center",
-    marginTop: 10,
   },
   avatarImage: {
     width: "100%",
-    height: 250,
-    alignSelf: "center",
+    height: "100%",
+    resizeMode: "cover",
   },
 });
