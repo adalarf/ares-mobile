@@ -1,40 +1,12 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { get } from "lodash";
 import { Text, View } from "react-native";
 import { styles } from "./HeaderWithGems";
-import { useNavigation } from "@react-navigation/native";
-import { authService } from "../services/api/authService";
+import useStore from "../services/store";
 
 function LevelCircle() {
-  const [data, setData] = React.useState({});
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    getData();
-    return navigation.addListener("focus", () => {
-      console.log("Screen focused");
-      getData();
-    });
-  }, []);
-
-  const getData = async () => {
-    try {
-      const token = await authService.get_token();
-      const response = await fetch("http://51.250.36.219:8000/stats/info", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setData(data);
-      console.log("Data from API:", data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const data = useStore((state) => state.stats_info);
 
   return (
     <View style={styles.levelCircle}>
@@ -52,4 +24,4 @@ function LevelCircle() {
   );
 }
 
-export default LevelCircle;
+export default memo(LevelCircle);

@@ -5,34 +5,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import { authService } from "../services/api/authService";
 import { get } from "lodash";
+import useStore from "../services/store";
 
 export const BMIBanner = () => {
-  const [data, setData] = React.useState({});
-
-  useEffect(() => {
-    getBmiData();
-  }, []);
-
-  const getBmiData = async () => {
-    try {
-      const token = await authService.get_token();
-      const response = await fetch(
-        "http://51.250.36.219:8000/stats/get_calories_info",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const data = await response.json();
-      setData(data);
-      console.log("Data from API:", data);
-    } catch (error) {
-      console.error("Error fetching BMI data:", error);
-    }
-  };
+  const data = useStore((state) => state.bmi_data);
 
   const widthAndHeight = 80;
   const series = [
@@ -40,7 +16,7 @@ export const BMIBanner = () => {
       value: get(data, "body_mass_index"),
       color: "transparent",
       label: {
-        text: Number(get(data, "body_mass_index")).toFixed(2),
+        text: Number(get(data, "body_mass_index", 0)).toFixed(2),
         fontWeight: "bold",
         fill: "#fff",
         fontSize: 10,

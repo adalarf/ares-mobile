@@ -4,8 +4,10 @@ import { ScreenHeader } from "../components/common/ScreenHeader";
 import { handleSelect } from "../services/api/handleSelection";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import useStore from "../services/store";
 
 export const SelectPlaceScreen = ({ navigation }) => {
+  const setData = useStore((state) => state.setData);
   return (
     <BackgroundLayout>
       <View style={styles.container}>
@@ -15,8 +17,8 @@ export const SelectPlaceScreen = ({ navigation }) => {
           <CustomButtonWithGradientBorder
             title="Дома"
             onPress={async () => {
-              await AsyncStorage.setItem("training_place", "Дом");
-              handleSelect(
+              setData("training_place", "home");
+              await handleSelect(
                 { training_place: "home" },
                 navigation,
                 "selectLoad",
@@ -26,8 +28,8 @@ export const SelectPlaceScreen = ({ navigation }) => {
           <CustomButtonWithGradientBorder
             title="На улице"
             onPress={async () => {
-              await AsyncStorage.setItem("training_place", "Зал");
-              handleSelect(
+              setData("training_place", "outside");
+              await handleSelect(
                 { training_place: "outside" },
                 navigation,
                 "selectLoad",

@@ -4,13 +4,15 @@ import { useState } from "react";
 import { handleSelect } from "../services/api/handleSelection";
 import { ScreenHeader } from "../components/common/ScreenHeader";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import useStore from "../services/store";
 
 export const SelectParametersScreen = ({ navigation }) => {
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [age, setAge] = useState("");
+  const [height, setHeight] = useState("178");
+  const [weight, setWeight] = useState("67");
+  const [age, setAge] = useState("21");
+  const setData = useStore((state) => state.setData);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const numericHeight = parseFloat(height);
     const numericWeight = parseFloat(weight);
     const numericAge = Number(age);
@@ -19,8 +21,12 @@ export const SelectParametersScreen = ({ navigation }) => {
       alert("Пожалуйста, введите корректные значения роста и веса");
       return;
     }
-
-    handleSelect(
+    setData("parameters", {
+      height: numericHeight,
+      weight: numericWeight,
+      age: numericAge,
+    });
+    await handleSelect(
       { height: numericHeight, weight: numericWeight, age: numericAge },
       navigation,
       "selectPlace",

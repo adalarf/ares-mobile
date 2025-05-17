@@ -6,38 +6,17 @@ import { authService } from "../services/api/authService";
 import { useEffect, useState, useCallback } from "react";
 import { get } from "lodash";
 import { useNavigation } from "@react-navigation/native";
+import useStore from "../services/store";
 
 export const CalendarCard = () => {
-  const [workoutData, setWorkoutData] = useState([]);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    const fetchWorkoutPlan = async () => {
-      try {
-        const token = await authService.get_token();
-        const response = await fetch(
-          "http://51.250.36.219:8000/training/workout_plan",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const data = await response.json();
-        console.log("Workout Plan Data:", data);
-        setWorkoutData(data);
-      } catch (error) {
-        console.error("Ошибка загрузки плана тренировок:", error);
-      }
-    };
-    fetchWorkoutPlan();
-  }, []);
+  const workoutData = useStore((state) => state.workout_plan);
 
   const getTitle = useCallback(() => {
     const today = new Date().toISOString().split("T")[0];
-    const workout = workoutData?.days?.find((item) => item.date === today);
+    const workout = get(workoutData, "days", []).find(
+      (item) => item.date === today,
+    );
     return workout
       ? `День  ${get(workout, "muscle_group", "")}`
       : "Нет упражнений";

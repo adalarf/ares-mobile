@@ -1,39 +1,12 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { typography } from "../styles/typography";
-import { authService } from "../services/api/authService";
 import { get } from "lodash";
 import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "@react-navigation/native";
+import useStore from "../services/store";
 
 function HeaderWithGems({ leftElement }) {
-  const [data, setData] = React.useState({});
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    return navigation.addListener("focus", () => {
-      console.log("Screen focused");
-      getData();
-    });
-  }, []);
-
-  const getData = async () => {
-    try {
-      const token = await authService.get_token();
-      const response = await fetch("http://51.250.36.219:8000/stats/info", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setData(data);
-      console.log("Data from API:", data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const data = useStore((state) => state.stats_info);
 
   return (
     <View style={styles.header}>

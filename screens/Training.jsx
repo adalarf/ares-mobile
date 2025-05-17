@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -9,38 +9,11 @@ import {
 } from "react-native";
 import { TrainingHeader } from "../components/TrainingHeader";
 import { TrainingItem } from "../components/TrainingItem";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { authService } from "../services/api/authService";
+import useStore from "../services/store";
 
 export const TrainingScreen = ({ navigation }) => {
-  const [workoutData, setWorkoutData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchWorkoutPlan = async () => {
-      try {
-        const token = await authService.get_token();
-        const response = await fetch(
-          "http://51.250.36.219:8000/training/workout_plan",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const data = await response.json();
-        console.log("Workout Plan Data:", data);
-        setWorkoutData(data);
-      } catch (error) {
-        console.error("Ошибка загрузки плана тренировок:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWorkoutPlan();
-  }, []);
+  const workoutData = useStore((state) => state.workout_plan);
+  const [loading, setLoading] = useState(false);
 
   if (loading) {
     return (

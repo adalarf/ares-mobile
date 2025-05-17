@@ -9,25 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { authService } from "../services/api/authService";
 import { typography } from "../styles/typography";
+import { createRequest } from "../hooks/useMainRequests";
 
 export default ({ navigation }) => {
   const handleStart = async () => {
     try {
-      authService.refresh_tokens();
-      const token = await AsyncStorage.getItem("authToken");
-      const response = await fetch(
-        "http://51.250.36.219:8000/blitz/blitz_poll",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      const response = await createRequest("blitz/blitz_poll", "POST");
       const data = await response.json();
       navigation.navigate("blitzPoll", { data });
     } catch (err) {

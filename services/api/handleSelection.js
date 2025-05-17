@@ -1,10 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
+import useStore from "../store";
 
 export const handleSelect = async (dataObject, navigation, nextScreen) => {
   try {
-    const token = await AsyncStorage.getItem("authToken");
-    if (dataObject.hasOwnProperty("load")) {
+    const token = useStore.getState().authToken;
+    if (dataObject.hasOwnProperty("intensity")) {
       await AsyncStorage.setItem("isFilledParameters", "filled");
     }
     if (!token) {

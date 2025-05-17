@@ -1,40 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
 import { typography } from "../styles/typography";
 import { Image } from "expo-image";
-import { useEffect, useState } from "react";
-import { authService } from "../services/api/authService";
+import useStore from "../services/store";
 
 export const AvatarCard = () => {
-  const [avatar, setAvatar] = useState(require("../assets/avatar.png"));
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    let getAvatar = async () => {
-      try {
-        let token = await authService.get_token();
-        let response = await fetch(
-          "http://51.250.36.219:8000/stats/get_user_avatar",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        let data = await response.json();
-        console.log("Avatar data:", data);
-        if (data?.avatar) {
-          setAvatar({ uri: data.avatar });
-        }
-      } catch (error) {
-        console.log("Error fetching avatar:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getAvatar();
-  }, []);
+  const avatar = useStore((state) => state.avatar);
 
   return (
     <View style={styles.container}>
@@ -45,7 +15,13 @@ export const AvatarCard = () => {
         />
       </View>
       <Text style={[styles.title, typography.bounded]}>Ваш аватар</Text>
-      {isLoading ? null : <Image source={avatar} style={styles.avatarImage} />}
+      {!avatar ? null : (
+        <Image
+          source={{ uri: avatar }}
+          style={styles.avatarImage}
+          cachePolicy={"disk"}
+        />
+      )}
     </View>
   );
 };

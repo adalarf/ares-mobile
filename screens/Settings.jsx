@@ -11,11 +11,14 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { typography } from "../styles/typography";
 import LevelCircle from "../components/LevelCircle";
+import useStore from "../services/store";
 
 export const SettingsScreen = ({ navigation }) => {
+  const setData = useStore((state) => state.setData);
+
   const handleLogout = async () => {
-    await AsyncStorage.removeItem("authToken");
-    await AsyncStorage.removeItem("refreshToken");
+    setData("authToken", "");
+    setData("refreshToken", "");
     navigation.navigate("home");
   };
 

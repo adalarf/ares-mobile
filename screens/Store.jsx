@@ -6,59 +6,29 @@ import {
   View,
   StyleSheet,
   Text,
+  Alert,
 } from "react-native";
 import { Image } from "expo-image";
 import HeaderWithGems from "../components/HeaderWithGems";
 import { authService } from "../services/api/authService";
 import { get } from "lodash";
-import { textStyles, typography } from "../styles/typography";
+import { typography } from "../styles/typography";
+import useStore from "../services/store";
+import { createRequest, getAvatar } from "../hooks/useMainRequests";
 
 function Store({ navigation }) {
-  const [avatar, setAvatar] = React.useState("");
   const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const avatar = useStore((state) => state.avatar);
 
   useEffect(() => {
     getAvatar();
     getItems();
   }, []);
 
-  const getAvatar = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      let token = await authService.get_token();
-      let response = await fetch(
-        "http://51.250.36.219:8000/stats/get_user_avatar",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      let data = await response.json();
-      setAvatar(data);
-    } catch (error) {
-      console.error("Error fetching avatar:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   const getItems = useCallback(async () => {
     try {
-      let token = await authService.get_token();
-      let response = await fetch("http://51.250.36.219:8000/stats/get_items", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
+      let response = await createRequest("stats/get_items");
       let data = await response.json();
-      console.log("Items data:", data);
       setItems(get(data, "items", []));
     } catch (error) {
       console.error("Error fetching items:", error);
@@ -78,7 +48,8 @@ function Store({ navigation }) {
       });
 
       let data = await response.json();
-      // console.log("Buy item response:", data);
+      console.log("Buy item response:", data);
+      Alert.alert(data.detail);
     } catch (error) {
       console.error("Error buying item:", JSON.stringify(error, null, 2));
     }
@@ -241,7 +212,7 @@ function Store({ navigation }) {
       <View style={styles.avatarContainer}>
         <Image
           source={{
-            uri: avatar.avatar,
+            uri: avatar,
           }}
           style={styles.avatar}
           cachePolicy={"disk"}

@@ -2,10 +2,11 @@ import { View, StyleSheet } from "react-native";
 import { BackgroundLayout } from "../components/layout/BackgroundLayout";
 import { ScreenHeader } from "../components/common/ScreenHeader";
 import { handleSelect } from "../services/api/handleSelection";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import useStore from "../services/store";
 
 export const SelectGoalScreen = ({ navigation }) => {
+  const setData = useStore((state) => state.setData);
   return (
     <BackgroundLayout>
       <View style={styles.container}>
@@ -15,8 +16,8 @@ export const SelectGoalScreen = ({ navigation }) => {
           <CustomButtonWithGradientBorder
             title="Похудение"
             onPress={async () => {
-              await AsyncStorage.setItem("goal", "weight_loss");
-              handleSelect(
+              setData("goal", "weight_loss");
+              await handleSelect(
                 { goal: "weight_loss" },
                 navigation,
                 "selectParameters",
@@ -26,8 +27,8 @@ export const SelectGoalScreen = ({ navigation }) => {
           <CustomButtonWithGradientBorder
             title="Набор мышц"
             onPress={async () => {
-              await AsyncStorage.setItem("goal", "muscle_gain");
-              handleSelect(
+              setData("goal", "muscle_gain");
+              await handleSelect(
                 { goal: "muscle_gain" },
                 navigation,
                 "selectParameters",
