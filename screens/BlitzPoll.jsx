@@ -33,7 +33,9 @@ function BlitzPoll({
             setQuestion(questions[index + 1]);
             setIndex(index + 1);
             setTimeLeft(20);
+            sendAnswer(0);
           } else {
+            sendAnswer(0, true);
             clearInterval(timer);
             return 0;
           }

@@ -4,7 +4,7 @@ import { styles } from "./SelectLoad";
 import { View, Text } from "react-native";
 import { ScreenHeader } from "../components/common/ScreenHeader";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
-import { sendWorkoutPlan } from "../hooks/useMainRequests";
+import { postFoodRestrictions } from "../hooks/useMainRequests";
 
 function SelectFoodRestrictions({ navigation }) {
   return (
@@ -15,7 +15,10 @@ function SelectFoodRestrictions({ navigation }) {
         />
         <View style={styles.buttonContainer}>
           <CustomButtonWithGradientBorder
-            onPress={() => sendWorkoutPlan(navigation)}
+            onPress={async () => {
+              await postFoodRestrictions(["Мясо"]);
+              await navigation.navigate("selectInjuries");
+            }}
           >
             <View style={styles.textContainer}>
               <Text style={styles.mainText}>Вегетарианец</Text>
@@ -38,7 +41,8 @@ function SelectFoodRestrictions({ navigation }) {
         <View style={styles.buttonContainer}>
           <CustomButtonWithGradientBorder
             onPress={async () => {
-              await sendWorkoutPlan(navigation);
+              await postFoodRestrictions([]);
+              await navigation.navigate("selectInjuries");
             }}
             style={{ marginTop: 100 }}
           >

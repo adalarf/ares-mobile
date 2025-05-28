@@ -75,10 +75,8 @@ export const authService = {
       }
       return { success: false, error: "Не удалось обновить токены" };
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 500 || error.response.status === 401)
-      ) {
+      console.log("Error refreshing tokens:");
+      if (error.response && error.response.status === 500) {
         console.log("Refresh token expired");
         useStore.setState({ authToken: "", refreshToken: "" });
         NavigationService.reset("authorization", 0);

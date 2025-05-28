@@ -10,23 +10,14 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { getMuscleGroups } from "../hooks/useMainRequests";
+import useStore from "../services/store";
 
 export const ExerciseTypesScreen = ({ navigation }) => {
-  const [muscleGroups, setMuscleGroups] = useState([]);
+  const muscleGroups = useStore((state) => state.muscle_groups);
 
   useEffect(() => {
-    const fetchMuscleGroups = async () => {
-      try {
-        const response = await fetch(
-          "http://51.250.36.219:8000/training/muscle_groups",
-        );
-        const data = await response.json();
-        setMuscleGroups(data);
-      } catch (error) {
-        console.error("Ошибка загрузки групп мышц:", error);
-      }
-    };
-    fetchMuscleGroups();
+    getMuscleGroups();
   }, []);
 
   return (

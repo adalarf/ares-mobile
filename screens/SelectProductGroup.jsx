@@ -12,43 +12,41 @@ import { ScreenHeader } from "../components/common/ScreenHeader";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
 import { LinearGradient } from "expo-linear-gradient";
 import { textStyles } from "../styles/typography";
-import { sendWorkoutPlan } from "../hooks/useMainRequests";
+import {
+  postFoodRestrictions,
+  sendWorkoutPlan,
+} from "../hooks/useMainRequests";
 
 const data = [
   {
     id: 1,
     name: "Молочные продукты",
-    imageUri:
-      "https://img.freepik.com/free-photo/view-allergens-commonly-found-dairy_23-2150170319.jpg",
+    image: require("../assets/product-groups/milk.png"),
   },
   {
     id: 2,
     name: "Рыба",
-    imageUri:
-      "https://здоровое-питание.рф/upload/iblock/2b1/m3xtmwo4k19mzqedc4hexexup17qgvy8/-YAkov-Filimonov-Fotobank-Lori-_38_-_1_.jpg",
+    image: require("../assets/product-groups/fish.png"),
   },
   {
     id: 3,
     name: "Орехи",
-    imageUri:
-      "https://s1.eda.ru/StaticContent/Photos/4/1f/41f6edec03b54a0fa2f562b558184495.jpg",
+    image: require("../assets/product-groups/nuts.png"),
   },
   {
     id: 4,
     name: "Куриное мясо",
-    imageUri: "https://levelvan.ru/upload/media/n-1001459390562-631.jpg",
+    image: require("../assets/product-groups/chikken.png"),
   },
   {
     id: 5,
     name: "Цитрусы",
-    imageUri:
-      "https://pavlovolimon.ru/wp-content/uploads/2018/02/%D0%90%D0%BF%D0%B5%D0%BB%D1%8C%D1%81%D0%B8%D0%BD.jpg",
+    image: require("../assets/product-groups/citrus.png"),
   },
   {
     id: 6,
     name: "Яйца",
-    imageUri:
-      "https://www.agroinvestor.ru/upload/iblock/d5a/d5a263ce9a694817ecb4b725cc36bb36.jpg",
+    image: require("../assets/product-groups/eggs.png"),
   },
 ];
 
@@ -96,8 +94,8 @@ function SelectProductGroup({ navigation }) {
                 >
                   <View style={styles.imageContainer}>
                     <Image
-                      source={{ uri: item.imageUri }}
-                      style={{ flex: 1 }}
+                      source={item.image}
+                      style={{ width: "100%", height: "100%" }}
                     />
                     <View style={styles.titleContainer}>
                       <Text style={textStyles.text20}>{item.name}</Text>
@@ -110,7 +108,16 @@ function SelectProductGroup({ navigation }) {
         </ScrollView>
         <View style={styles.buttonContainer}>
           <CustomButtonWithGradientBorder
-            onPress={() => sendWorkoutPlan(navigation)}
+            onPress={async () => {
+              if (activeGroups.length === 0) {
+                alert("Пожалуйста, выберите хотя бы одну группу продуктов.");
+                return;
+              }
+              await postFoodRestrictions(
+                activeGroups.map((group) => group.name),
+              );
+              navigation.navigate("selectInjuries");
+            }}
           >
             <Text style={textStyles.buttonText}>Подтвердить</Text>
           </CustomButtonWithGradientBorder>

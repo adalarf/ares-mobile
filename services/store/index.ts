@@ -33,6 +33,11 @@ interface BearState {
     height: number;
     weight: number;
   };
+  muscle_groups: Array<{
+    id: number;
+    name: string;
+    image: string;
+  }>;
   bmi_data: any;
   training_place: string;
   training_level: string;
@@ -51,6 +56,7 @@ const useStore = create<BearState>()(
           height: 0,
           weight: 0,
         },
+        muscle_groups: [],
         bmi_data: {},
         authToken: "",
         refreshToken: "",

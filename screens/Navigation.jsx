@@ -31,6 +31,8 @@ import SelectProductGroup from "./SelectProductGroup";
 import LaunchScreen from "./LaunchScreen";
 import NavigationService from "../services/navigationService";
 import { PollComplete } from "./PollComplete";
+import SelectInjuries from "./SelectInjuries";
+import SelectInjuryType from "./SelectInjuryType";
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +73,8 @@ const MainStack = () => (
     />
     <Stack.Screen name="pollComplete" component={PollComplete} />
     <Stack.Screen name="launch" component={LaunchScreen} />
+    <Stack.Screen name="selectInjuries" component={SelectInjuries} />
+    <Stack.Screen name="selectInjuryType" component={SelectInjuryType} />
   </Stack.Navigator>
 );
 

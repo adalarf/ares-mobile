@@ -26,11 +26,11 @@ export const SelectPlaceScreen = ({ navigation }) => {
             }}
           />
           <CustomButtonWithGradientBorder
-            title="На улице"
+            title="В зале"
             onPress={async () => {
-              setData("training_place", "outside");
+              setData("training_place", "gym");
               await handleSelect(
-                { training_place: "outside" },
+                { training_place: "gym" },
                 navigation,
                 "selectLoad",
               );

@@ -36,6 +36,33 @@ export const sendWorkoutPlan = async (navigation) => {
   }
 };
 
+export const getMuscleGroups = async () => {
+  try {
+    const response = await createRequest("training/muscle_groups");
+    if (response.status === 200) {
+      const data = await response.json();
+      useStore.setState({ muscle_groups: data });
+    } else {
+      console.error("Failed to fetch muscle groups:", response.status);
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки групп мышц:", error);
+  }
+};
+
+export const postInjuries = async (injuries = []) => {
+  try {
+    const response = await createRequest("training/injuries", "POST", {
+      injuries,
+    });
+    if (response.status !== 200) {
+      console.error("Failed to post injuries:", response.status);
+    }
+  } catch (error) {
+    console.error("Ошибка отправки травм:", error);
+  }
+};
+
 export const getWorkoutPlan = async () => {
   try {
     const response = await createRequest("training/workout_plan", "GET");
@@ -61,6 +88,14 @@ export const getStatsInfo = async () => {
     }
   } catch (error) {
     console.error("Ошибка загрузки информации о пользователе:", error);
+  }
+};
+
+export const postFoodRestrictions = async (restrictions) => {
+  try {
+    await createRequest("nutrition/restrictions", "POST", restrictions);
+  } catch (error) {
+    console.error("Ошибка отправки ограничений по питанию:", error);
   }
 };
 

@@ -3,7 +3,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { typography } from "../../styles/typography";
 import { LinearGradient } from "expo-linear-gradient";
 
-function CustomButtonWithGradientBorder({ title, onPress, style, children }) {
+function CustomButtonWithGradientBorder({
+  title,
+  onPress,
+  style,
+  children,
+  borderWidth = 2,
+}) {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <LinearGradient
@@ -18,8 +24,10 @@ function CustomButtonWithGradientBorder({ title, onPress, style, children }) {
         end={[1, 1]}
         style={[
           styles.container,
-          { padding: 2, height: "100%" },
-          style?.borderRadius ? { borderRadius: style.borderRadius + 2 } : null,
+          { padding: borderWidth, height: "100%" },
+          style?.borderRadius
+            ? { borderRadius: style.borderRadius + borderWidth }
+            : null,
         ]}
       >
         <View
