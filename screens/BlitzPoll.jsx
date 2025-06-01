@@ -29,13 +29,16 @@ function BlitzPoll({
       setTimeLeft((prev) => {
         if (prev <= 0) {
           // Optional: Handle time up here
+          let wrongAnswer = get(question, "answers", []).find(
+            (answer) => !answer.is_right,
+          );
           if (index < questions.length - 1) {
             setQuestion(questions[index + 1]);
             setIndex(index + 1);
             setTimeLeft(20);
-            sendAnswer(0);
+            sendAnswer(get(wrongAnswer, "answer_id", 0));
           } else {
-            sendAnswer(0, true);
+            sendAnswer(get(wrongAnswer, "answer_id", 0), true);
             clearInterval(timer);
             return 0;
           }

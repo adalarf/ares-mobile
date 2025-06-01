@@ -5,12 +5,14 @@ import { handleSelect } from "../services/api/handleSelection";
 import { ScreenHeader } from "../components/common/ScreenHeader";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
 import useStore from "../services/store";
+import { get } from "lodash";
 
-export const SelectParametersScreen = ({ navigation }) => {
+export const SelectParametersScreen = ({ navigation, route }) => {
   const [height, setHeight] = useState("178");
   const [weight, setWeight] = useState("67");
   const [age, setAge] = useState("21");
   const setData = useStore((state) => state.setData);
+  const from = get(route, "params.from", "");
 
   const onSubmit = async () => {
     const numericHeight = parseFloat(height);
@@ -29,7 +31,7 @@ export const SelectParametersScreen = ({ navigation }) => {
     await handleSelect(
       { height: numericHeight, weight: numericWeight, age: numericAge },
       navigation,
-      "selectPlace",
+      from ? from : "selectPlace",
     );
   };
 

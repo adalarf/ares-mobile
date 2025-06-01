@@ -20,12 +20,12 @@ export const useAuth = (navigation) => {
         await AsyncStorage.getItem("isFilledParameters");
 
       if (loginResult.success) {
-        await AsyncStorage.setItem("isLoggedIn", "true");
-        if (isFilledParameters !== null) {
-          navigation.navigate("selectGender");
-        } else {
-          navigation.navigate("mainPage");
-        }
+        // await AsyncStorage.setItem("isLoggedIn", "true");
+        // if (isFilledParameters !== null) {
+        //   navigation.navigate("selectGender");
+        // } else {
+        navigation.navigate("mainPage");
+        // }
       } else {
         const registerResult = await authService.register(email, password);
 

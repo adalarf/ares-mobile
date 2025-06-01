@@ -52,7 +52,12 @@ export const SettingsScreen = ({ navigation }) => {
         contentContainerStyle={styles.scrollContainer}
         style={styles.scrollView}
       >
-        <TouchableOpacity style={styles.settingsButton}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("selectGoal", { from: "settings" });
+          }}
+          style={styles.settingsButton}
+        >
           <Text style={styles.settingsButtonText}>Изменение цели</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -64,7 +69,12 @@ export const SettingsScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.settingsButton}>
           <Text style={styles.settingsButtonText}>Настройка тренировки</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.settingsButton}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("selectParameters", { from: "settings" });
+          }}
+          style={styles.settingsButton}
+        >
           <Text style={styles.settingsButtonText}>Замеры</Text>
         </TouchableOpacity>
 

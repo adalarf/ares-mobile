@@ -14,13 +14,12 @@ import axios from "axios";
 import { get } from "lodash";
 import { Image } from "expo-image";
 
-const onComplete = async (exercise, navigation) => {
+const onComplete = async (exercise, navigation, isRandom = false) => {
   try {
     const token = await authService.get_token();
 
     const response = await axios.post(
-      "http://51.250.36.219:8000/training/complete_exercise/" +
-        get(exercise, "exercise_id", 1),
+      `http://51.250.36.219:8000/training/${isRandom ? "complete_random_exercise" : "complete_exercise"}/${get(exercise, "exercise_id", 1)}`,
       {},
       {
         headers: {
@@ -49,7 +48,7 @@ export const TrainingExampleScreen = ({ route }) => {
   const navigation = useNavigation();
   const [timeLeft, setTimeLeft] = useState(2);
   const [isRunning, setIsRunning] = useState(false);
-  const { exercise } = route.params;
+  const { exercise, isRandom = false } = route.params;
 
   useEffect(() => {
     let timer;
@@ -59,7 +58,7 @@ export const TrainingExampleScreen = ({ route }) => {
       }, 1000);
     } else if (timeLeft === 0) {
       setIsRunning(false);
-      onComplete(exercise, navigation);
+      onComplete(exercise, navigation, isRandom);
     }
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, navigation]);

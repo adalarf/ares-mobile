@@ -4,9 +4,12 @@ import { ScreenHeader } from "../components/common/ScreenHeader";
 import { handleSelect } from "../services/api/handleSelection";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
 import useStore from "../services/store";
+import { get } from "lodash";
 
-export const SelectGoalScreen = ({ navigation }) => {
+export const SelectGoalScreen = ({ navigation, route }) => {
   const setData = useStore((state) => state.setData);
+  const from = get(route, "params.from", "");
+
   return (
     <BackgroundLayout>
       <View style={styles.container}>
@@ -20,7 +23,7 @@ export const SelectGoalScreen = ({ navigation }) => {
               await handleSelect(
                 { goal: "weight_loss" },
                 navigation,
-                "selectParameters",
+                from ? from : "selectParameters",
               );
             }}
           />

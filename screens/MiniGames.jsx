@@ -16,17 +16,13 @@ import { createRequest } from "../hooks/useMainRequests";
 export const MiniGamesScreen = ({ navigation }) => {
   const handleRandomTraining = async () => {
     try {
-      const training_level = await AsyncStorage.getItem("training_level");
-      const goal = await AsyncStorage.getItem("goal");
-      const training_place = await AsyncStorage.getItem("training_place");
-      let response = await createRequest("training/random_exercise", "POST", {
-        training_level,
-        goal,
-        training_place,
-      });
+      let response = await createRequest("training/random_exercise", "POST");
       let data = await response.json();
       console.log("Random Training Data:", data);
-      navigation.navigate("trainingExample", { exercise: data });
+      navigation.navigate("trainingExample", {
+        exercise: data,
+        isRandom: true,
+      });
     } catch (e) {
       alert("Ошибка при получении случайной тренировки");
     }

@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import useStore from "../store";
+import { authService } from "./authService";
 
 export const handleSelect = async (dataObject, navigation, nextScreen) => {
   try {
@@ -23,10 +24,16 @@ export const handleSelect = async (dataObject, navigation, nextScreen) => {
     });
 
     if (!response.ok) {
+      await authService.refresh_tokens();
       throw new Error("Ошибка при отправке пола");
     }
 
-    navigation.navigate(nextScreen);
+    let routes = navigation.getState().routes;
+    if (routes.some((route) => route.name === nextScreen)) {
+      navigation.goBack();
+    } else {
+      navigation.navigate(nextScreen);
+    }
   } catch (error) {
     console.error(error);
     Alert.alert("Ошибка", "Не удалось отправить данные. Попробуйте снова.");
