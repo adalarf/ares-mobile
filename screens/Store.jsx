@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Dimensions,
   ImageBackground,
@@ -6,53 +6,23 @@ import {
   View,
   StyleSheet,
   Text,
-  Alert,
 } from "react-native";
 import { Image } from "expo-image";
 import HeaderWithGems from "../components/HeaderWithGems";
-import { authService } from "../services/api/authService";
 import { get } from "lodash";
 import { typography } from "../styles/typography";
 import useStore from "../services/store";
-import { createRequest, getAvatar } from "../hooks/useMainRequests";
+import { buyItem, getAvatar, getItems } from "../hooks/useMainRequests";
 
 function Store({ navigation }) {
   const [items, setItems] = React.useState([]);
   const avatar = useStore((state) => state.avatar);
 
   useEffect(() => {
-    getAvatar();
-    getItems();
-  }, []);
-
-  const getItems = useCallback(async () => {
-    try {
-      let response = await createRequest("stats/get_items");
-      let data = await response.json();
+    getAvatar().then();
+    getItems().then((data) => {
       setItems(get(data, "items", []));
-    } catch (error) {
-      console.error("Error fetching items:", error);
-    }
-  }, []);
-
-  const buyItem = useCallback(async (itemId) => {
-    try {
-      let token = await authService.get_token();
-      let response = await fetch("http://51.250.36.219:8000/stats/buy_items", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: itemId }),
-      });
-
-      let data = await response.json();
-      console.log("Buy item response:", data);
-      Alert.alert(data.detail);
-    } catch (error) {
-      console.error("Error buying item:", JSON.stringify(error, null, 2));
-    }
+    });
   }, []);
 
   return (

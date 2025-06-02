@@ -16,49 +16,15 @@ import PieChart from "react-native-pie-chart";
 import { useFocusEffect } from "@react-navigation/native";
 import { typography } from "../styles/typography";
 import LevelCircle from "../components/LevelCircle";
+import useStore from "../services/store";
+import { getNutritionPlan } from "../hooks/useMainRequests";
 
 function Nutrition({ navigation }) {
-  const [nutritionData, setNutritionData] = React.useState({});
+  const nutritionData = useStore((state) => state.nutrition_plan);
 
   useFocusEffect(
     React.useCallback(() => {
-      const fetchNutritionData = async () => {
-        try {
-          const token = await authService.get_token();
-          const response = await fetch(
-            "http://51.250.36.219:8000/nutrition/meal_plan",
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            },
-          );
-          const data = await response.json();
-          console.log("Nutrition Data:", JSON.stringify(data, null, 2));
-          setNutritionData(data);
-          if (!Array.isArray(data?.meals)) {
-            const response = await fetch(
-              "http://51.250.36.219:8000/nutrition/generate_meal_plan",
-              {
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json",
-                },
-              },
-            );
-            const data = await response.json();
-            console.log("Generated Meal Plan Data:", data);
-            setNutritionData(data);
-          }
-          // console.log("Workout Plan Data:", JSON.stringify(data, null, 2));
-        } catch (error) {
-          console.error("Ошибка загрузки Питание:", error);
-        }
-      };
-      fetchNutritionData();
+      getNutritionPlan();
       return () => {};
     }, []),
   );

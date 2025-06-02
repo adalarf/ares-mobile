@@ -10,33 +10,22 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomButtonWithGradientBorder from "../components/common/CustomButtonWithGradientBorder";
+import { getExercises } from "../hooks/useMainRequests";
 
 export const ExercisesScreen = ({ navigation, route }) => {
   const { muscle_group_id } = route.params;
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        const response = await fetch(
-          `http://51.250.36.219:8000/training/exercises?muscle_group_id=${muscle_group_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const data = await response.json();
-        setExercises(Array.isArray(data) ? data : []);
-      } catch (error) {
-        setExercises([]);
-        console.error("Ошибка загрузки упражнений:", error);
-      } finally {
+    getExercises(muscle_group_id)
+      .then((data) => {
+        setExercises(data);
         setLoading(false);
-      }
-    };
-    fetchExercises();
+      })
+      .catch((err) => {
+        console.error("Error fetching exercises:", err);
+        setLoading(false);
+      });
   }, [muscle_group_id]);
   return (
     <View style={{ flex: 1 }}>

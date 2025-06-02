@@ -41,6 +41,7 @@ interface BearState {
   bmi_data: any;
   training_place: string;
   training_level: string;
+  nutrition_plan: any;
   setData: (key: keyof BearState, value: any) => void;
 }
 
@@ -64,6 +65,7 @@ const useStore = create<BearState>()(
         training_level: "",
         workout_plan: {},
         stats_info: {},
+        nutrition_plan: {},
         setData: (key, value) => set({ [key]: value }),
       }),
       {

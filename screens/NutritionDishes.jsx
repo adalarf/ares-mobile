@@ -13,31 +13,10 @@ import Ellipse from "../assets/svgs/Ellipse";
 import { authService } from "../services/api/authService";
 import { useFocusEffect } from "@react-navigation/native";
 import { textStyles, typography } from "../styles/typography";
+import { makeMealEaten } from "../hooks/useMainRequests";
 
 function NutritionDishes({ navigation, route: { params } }) {
-  // console.log("NutritionDishes params", JSON.stringify(params, null, 2));
   const [meal, setMeal] = React.useState(params);
-
-  const makeEaten = async (id) => {
-    try {
-      const token = await authService.get_token();
-      const response = await fetch(
-        `http://51.250.36.219:8000/nutrition/make_meal_eaten/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const data = await response.json();
-      console.log("Meal eaten response", data);
-      setMeal(data);
-    } catch (error) {
-      console.error("Error making eaten:", JSON.stringify(error, null, 2));
-    }
-  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -72,7 +51,10 @@ function NutritionDishes({ navigation, route: { params } }) {
           <View style={styles.row}>
             <View style={styles.imgCon} />
             <TouchableOpacity
-              onPress={() => makeEaten(meal?.id)}
+              onPress={async () => {
+                let res = await makeMealEaten(meal?.id);
+                setMeal(res);
+              }}
               style={styles.content}
             >
               <Ellipse color={meal.is_eaten ? "#00FF00" : "#8E17B2"}>

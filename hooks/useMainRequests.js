@@ -1,5 +1,6 @@
 import { authService, BASE_URL } from "../services/api/authService";
 import useStore from "../services/store";
+import { Alert } from "react-native";
 
 export const createRequest = async (url, method, body) => {
   const token = await authService.get_token();
@@ -124,5 +125,104 @@ export const getAvatar = async () => {
     }
   } catch (error) {
     console.error("Ошибка загрузки аватара:", error);
+  }
+};
+
+export const getNutritionPlan = async () => {
+  try {
+    const response = await createRequest("nutrition/meal_plan");
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(JSON.stringify(data, null, 2));
+      useStore.setState({ nutrition_plan: data });
+    } else {
+      console.error("Failed to fetch nutrition plan:", response.status);
+      if (response.status === 404) {
+        await generateNutritionPlan();
+      }
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки плана питания:", error);
+  }
+};
+
+export const generateNutritionPlan = async () => {
+  try {
+    const response = await createRequest(
+      "nutrition/generate_meal_plan",
+      "POST",
+    );
+    if (response.status === 200) {
+      const data = await response.json();
+      useStore.setState({ nutrition_plan: data });
+    } else {
+      console.error("Failed to generate nutrition plan:", response.status);
+    }
+  } catch (error) {
+    console.error("Ошибка генерации плана питания:", error);
+  }
+};
+
+export const makeMealEaten = async (id) => {
+  try {
+    const response = await createRequest(
+      `nutrition/make_meal_eaten/${id}`,
+      "POST",
+    );
+    if (response.status === 200) {
+      // console.log("Meal eaten response", JSON.stringify(data, null, 2));
+      return await response.json();
+    } else {
+      console.error("Failed to mark meal as eaten:", response.status);
+    }
+  } catch (error) {
+    console.error("Error making meal eaten:", JSON.stringify(error, null, 2));
+  }
+};
+
+export const getExercises = async (muscleGroupId) => {
+  try {
+    const response = await createRequest(
+      `training/exercises?muscle_group_id=${muscleGroupId}`,
+      "GET",
+    );
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      console.error("Failed to fetch exercises:", response.status);
+      return [];
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки упражнений:", error);
+    return [];
+  }
+};
+
+export const getItems = async () => {
+  try {
+    const response = await createRequest("stats/get_items", "GET");
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      console.error("Failed to fetch items:", response.status);
+      return [];
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки предметов:", error);
+    return [];
+  }
+};
+
+export const buyItem = async (itemId) => {
+  try {
+    const response = await createRequest("stats/buy_items", "POST", {
+      id: itemId,
+    });
+    let data = await response.json();
+
+    console.log("Buy item response:", data);
+    Alert.alert(data.detail || "Item purchased successfully");
+  } catch (error) {
+    console.error("Error buying item:", JSON.stringify(error, null, 2));
   }
 };
