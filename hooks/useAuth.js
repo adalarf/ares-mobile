@@ -16,12 +16,10 @@ export const useAuth = (navigation) => {
 
     try {
       const loginResult = await authService.login(email, password);
-      const isFilledParameters =
-        await AsyncStorage.getItem("isFilledParameters");
 
       if (loginResult.success) {
-        await AsyncStorage.setItem("isLoggedIn", "true");
-        if (isFilledParameters !== null) {
+        let isFilledParameters = loginResult.is_filled_parameters;
+        if (!isFilledParameters) {
           navigation.navigate("selectGender");
         } else {
           navigation.navigate("mainPage");
@@ -30,7 +28,6 @@ export const useAuth = (navigation) => {
         const registerResult = await authService.register(email, password);
 
         if (registerResult.success) {
-          await AsyncStorage.setItem("isLoggedIn", "true");
           navigation.navigate("selectGender");
         } else {
           Alert.alert("Ошибка", registerResult.error);

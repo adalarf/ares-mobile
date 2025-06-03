@@ -22,7 +22,11 @@ export const authService = {
       );
       let save = await saveToken(response);
       if (save.success) {
-        return { success: true };
+        let data = response.data;
+        return {
+          success: true,
+          is_filled_parameters: data.is_filled_parameters,
+        };
       }
       return { success: false, error: "Токен не получен от сервера" };
     } catch (error) {

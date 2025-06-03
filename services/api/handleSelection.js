@@ -6,9 +6,9 @@ import { authService } from "./authService";
 export const handleSelect = async (dataObject, navigation, nextScreen) => {
   try {
     const token = useStore.getState().authToken;
-    if (dataObject.hasOwnProperty("intensity")) {
-      await AsyncStorage.setItem("isFilledParameters", "filled");
-    }
+    // if (dataObject.hasOwnProperty("intensity")) {
+    //   await AsyncStorage.setItem("isFilledParameters", "filled");
+    // }
     if (!token) {
       Alert.alert("Ошибка", "Токен не найден");
       return;
